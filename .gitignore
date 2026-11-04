@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Secrets: your keys live here
+.env
+
+# Alfred
+logs/
+tests/hey_alfred.wav
+fd-benchmark/
+
+# macOS
+.DS_Store

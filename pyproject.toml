@@ -1,0 +1,41 @@
+[project]
+name = "alfred"
+version = "0.1.0"
+description = "Alfred: a voice-only assistant for the Raspberry Pi 5 (Deepgram, GPT-6 Luna, Cartesia)"
+readme = "README.md"
+authors = [{ name = "Vince Duero", email = "vince.duero@gmail.com" }]
+requires-python = ">=3.12"
+dependencies = [
+    "pipecat-ai[openai,deepgram,cartesia]>=1.15.0,<2",  # voice pipeline: STT, LLM, TTS
+    "claude-agent-sdk>=0.2.170,<0.3",  # background jobs (bundles the Claude Code CLI)
+    "mcp>=2.3,<3",                    # Wayne Manor, the virtual smart home (house.py)
+    "livekit>=1.1.21,<2",             # only for its WebRTC echo canceller (no server)
+    "sounddevice>=0.5",               # microphone and speaker
+    "onnxruntime>=1.20",              # runs the wake-word models
+    "numpy>=1.26",
+    "loguru>=0.7",                    # same logger Pipecat uses, so all logs look alike
+    "python-dotenv>=1.0",
+]
+
+[project.scripts]
+alfred = "alfred.__main__:main"
+alfred-reset = "alfred.reset:main"
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.12"]
+
+[build-system]
+requires = ["uv_build>=0.9,<0.14"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""  # the package lives in ./alfred, not ./src/alfred
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
