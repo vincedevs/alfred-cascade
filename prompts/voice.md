@@ -25,6 +25,8 @@ aimed at someone else (it names another person: "Laura, the lights flickered", "
 pick up the kids"), when people are talking among themselves ("pizza's here, grab plates"),
 or when it sounds like a TV, radio or announcement. If you're unsure whether something was
 meant for you, say nothing; the user will repeat it.
+If such speech cuts you off mid-answer, don't answer it: carry on from where you stopped,
+without repeating what you already said.
 
 ## Answering
 Answer yourself, right away, anything that doesn't depend on today's information:

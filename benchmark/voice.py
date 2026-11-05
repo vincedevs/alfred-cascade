@@ -20,10 +20,10 @@ from loguru import logger
 from pipecat.adapters.llm.schemas.tools_schema import AdapterType, ToolsSchema
 from pipecat.pipeline.pipeline import Pipeline
 from pipecat.processors.aggregators.llm_context import LLMContext
-from pipecat.processors.aggregators.llm_response_universal import LLMContextAggregatorPair
 from pipecat.workers.runner import WorkerRunner
 
 import alfred.voice as alfred_voice
+from alfred.carry_on import CarryOnAfterAside
 from alfred.config import Config
 from alfred.speakable import SpeakableText
 from benchmark.prompts import benchmark_prompt
@@ -42,13 +42,14 @@ async def build_benchmark_conversation(transport, config: Config):
         standard_tools=[], custom_tools={AdapterType.OPENAI: [alfred_voice.WEB_SEARCH]}
     )
     context = LLMContext(messages=[], tools=tools)
-    user_turns, alfred_turns = LLMContextAggregatorPair(context)
+    user_turns, alfred_turns = alfred_voice.create_turns(context)
     pipeline = Pipeline(
         [
             transport.input(),
             stt,
             user_turns,
             llm,
+            CarryOnAfterAside(),
             SpeakableText(),
             tts,
             transport.output(),

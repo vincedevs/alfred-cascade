@@ -77,3 +77,16 @@ def test_interrupting_alfred_empties_the_speaker(monkeypatch):
     output._engine = SimpleNamespace(stop_playback=lambda: stopped.append(True))
     asyncio.run(output.process_frame(InterruptionFrame(), FrameDirection.DOWNSTREAM))
     assert stopped == [True]
+
+
+def test_mm_hmm_does_not_stop_alfred_but_a_sentence_does():
+    from pipecat.processors.aggregators.llm_context import LLMContext
+    from pipecat.turns.user_start import MinWordsUserTurnStartStrategy
+    from pipecat.turns.user_stop import EagerUserTurnStopStrategy
+
+    user_turns, _alfred_turns = voice.create_turns(LLMContext())
+    turns = user_turns._params.user_turn_strategies
+    (start,) = turns.start
+    assert isinstance(start, MinWordsUserTurnStartStrategy)
+    assert start._min_words == voice.INTERRUPT_WORDS > 2  # "mm-hmm yeah" is two
+    assert [type(stop) for stop in turns.stop] == [EagerUserTurnStopStrategy]

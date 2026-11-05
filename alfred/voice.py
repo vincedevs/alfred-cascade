@@ -3,8 +3,10 @@
     microphone -> Deepgram Flux -> your words -> GPT-6 Luna -> Alfred's words -> Cartesia
                -> speaker
 
-Deepgram Flux turns speech into text and also decides when you've finished speaking (and
-when you start talking over Alfred, which stops him). GPT-6 Luna answers, with OpenAI's
+Deepgram Flux turns speech into text and also decides when you've finished speaking; GPT-6
+Luna starts on its first guess of that. Talking over Alfred stops him, once you've said a
+few words ("mm-hmm" doesn't); if those words weren't meant for him, he carries on
+(carry_on.py). GPT-6 Luna answers, with OpenAI's
 hosted web search, Alfred's own tools for jobs, memory and reminders (tools.py) and Wayne
 Manor's for the house (house.py), all called directly: there's no hand-off to another
 model. Cartesia speaks the answer in Alfred's voice, minus links and markdown
@@ -43,15 +45,22 @@ from pipecat.observers.loggers.metrics_log_observer import MetricsLogObserver
 from pipecat.pipeline.pipeline import Pipeline
 from pipecat.pipeline.worker import PipelineParams, PipelineWorker, ProcessorUnusablePolicy
 from pipecat.processors.aggregators.llm_context import LLMContext
-from pipecat.processors.aggregators.llm_response_universal import LLMContextAggregatorPair
+from pipecat.processors.aggregators.llm_response_universal import (
+    LLMContextAggregatorPair,
+    LLMUserAggregatorParams,
+)
 from pipecat.services.cartesia.tts import CartesiaTTSService
 from pipecat.services.deepgram.flux.stt import DeepgramFluxSTTService
 from pipecat.services.openai.responses.llm import OpenAIResponsesLLMService
 from pipecat.services.tts_service import TextAggregationMode
+from pipecat.turns.user_start import MinWordsUserTurnStartStrategy
+from pipecat.turns.user_stop import EagerUserTurnStopStrategy
+from pipecat.turns.user_turn_strategies import UserTurnStrategies
 from pipecat.workers.runner import WorkerRunner
 
 from alfred.announcer import Announcer, opening_messages, recent_jobs_context
 from alfred.audio import SAMPLE_RATE, AudioEngine, load_sound
+from alfred.carry_on import CarryOnAfterAside
 from alfred.chat import chat_tools
 from alfred.config import PROJECT_ROOT, Config, load_prompt
 from alfred.greeting import SleepCommand, greet_unless_asked
@@ -87,7 +96,12 @@ SAY_WHEN_FREE_EVERY = 0.1  # news waits while you're speaking; checked this ofte
 SAY_WITHIN = 10.0  # ...but no longer than this, in case the end of your turn went unnoticed
 # The voice starts once it has this much of the reply (or a moment of it), word by word,
 # instead of waiting for a whole sentence: a haiku without full stops waited 1.3 s.
-TTS_BUFFER_MS = 300
+TTS_BUFFER_MS = 150
+# While Alfred is speaking, it takes this many of your words to stop him, so "mm-hmm" or
+# "alright" don't. When he isn't, your first word starts your turn.
+INTERRUPT_WORDS = 3
+# GPT-6 Luna answers straight away, without reasoning first: the fastest setting.
+REASONING = "none"
 # How OpenAI says the account has no credits left (then nothing works until you add some)
 NO_CREDITS = ("no credits remaining", "insufficient_quota", "exceeded your current quota")
 
@@ -126,7 +140,7 @@ class Conversation:
             create_tts(s.config),
         )
         self.transport = EngineTransport(engine)
-        user_turns, alfred_turns = LLMContextAggregatorPair(context)
+        user_turns, alfred_turns = create_turns(context)
         self.worker = create_worker(
             Pipeline(
                 [
@@ -134,6 +148,7 @@ class Conversation:
                     self.stt,
                     user_turns,
                     self.llm,
+                    CarryOnAfterAside(),  # cut off by words not for him: he carries on
                     SpeakableText(),  # no links or markdown read aloud
                     self.tts,
                     self.transport.output(),
@@ -334,11 +349,26 @@ def alfred_tools(services: Services, house_tools: list) -> ToolsSchema:
 
 
 def create_stt(config: Config) -> DeepgramFluxSTTService:
-    """Deepgram Flux: your words, and when your turn has ended (it also tells Pipecat when
-    you start talking over Alfred, which interrupts him)."""
+    """Deepgram Flux: your words, and when your turn has ended. It also guesses the end a
+    moment early, and GPT-6 Luna starts on that guess; the answer is thrown away if you
+    carry on speaking."""
     return DeepgramFluxSTTService(
         api_key=config.deepgram_api_key or "",
         settings=DeepgramFluxSTTService.Settings(model=config.stt_model),
+        enable_eager_end_of_turn=True,
+    )
+
+
+def create_turns(context: LLMContext) -> LLMContextAggregatorPair:
+    """Your side of the conversation and Alfred's. Your turn starts on your first word, or
+    on your INTERRUPT_WORDS-th while Alfred is speaking, and ends when Flux says so (see
+    create_stt)."""
+    turns = UserTurnStrategies(
+        start=[MinWordsUserTurnStartStrategy(min_words=INTERRUPT_WORDS)],
+        stop=[EagerUserTurnStopStrategy()],
+    )
+    return LLMContextAggregatorPair(
+        context, user_params=LLMUserAggregatorParams(user_turn_strategies=turns)
     )
 
 
@@ -353,7 +383,7 @@ def create_llm(config: Config, extra: str = "") -> OpenAIResponsesLLMService:
         settings=OpenAIResponsesLLMService.Settings(
             model=config.llm_model,
             system_instruction=load_prompt("voice") + extra,
-            reasoning=OpenAIResponsesLLMService.ReasoningConfig(effort="low"),
+            reasoning=OpenAIResponsesLLMService.ReasoningConfig(effort=REASONING),
         ),
     )
 
