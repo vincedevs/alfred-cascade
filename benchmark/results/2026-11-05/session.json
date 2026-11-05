@@ -1,0 +1,57 @@
+{
+  "student": "201511198",
+  "run_id": "2026-11-05_21-46-19",
+  "started": "2026-11-05T21:46:19+08:00",
+  "rounds": 5,
+  "seed": 874034,
+  "fdbench": "0.1.0",
+  "rig": "direct",
+  "judge": null,
+  "machine": {
+    "os": "Darwin 25.6.0",
+    "machine": "arm64",
+    "pi_model": null,
+    "ram_gb": 16.0,
+    "python": "3.12.12",
+    "network": "unknown",
+    "pi_temp_c": null,
+    "pi_throttled": null,
+    "disk_free_gb": 472.4,
+    "hostname": "192.168.1.5",
+    "optional": {
+      "ASR (faster-whisper)": true,
+      "pitch/intensity (praat-parselmouth)": true,
+      "UTMOSv2 quality": false
+    },
+    "fdbench": "0.1.0"
+  },
+  "devices": {},
+  "warnings_overridden": [],
+  "dataset": "/Users/vinceduero/Documents/menggai/AI231/me/alfred-cascade/fd-benchmark/datasets",
+  "dataset_counts": {
+    "v1_pause_synth": 30,
+    "v1_pause_candor": 30,
+    "v1_turntaking": 30,
+    "v1_interrupt": 30,
+    "v15_interruption": 30,
+    "v15_backchannel": 30,
+    "v15_talking_to_other": 30,
+    "v15_background": 30,
+    "false_tt": 40
+  },
+  "where": "remote",
+  "link": {
+    "peer": "192.168.1.11:52298",
+    "rtt_ms": 4.263667040504515,
+    "host": "0.0.0.0",
+    "port": 8791,
+    "disconnects": 1
+  },
+  "finished": "2026-11-05T22:31:52+08:00",
+  "outcome": {
+    "completed": 50,
+    "total": 50,
+    "stopped_early": false,
+    "seconds": 2725.8240697500296
+  }
+}

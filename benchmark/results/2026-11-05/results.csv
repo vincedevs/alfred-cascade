@@ -1,0 +1,44 @@
+student,paper,metric,key,value,n,k,ci_low,ci_high,median,p95,mean,p_value,better
+201511198,v1,"TOR, pause handling (synthetic)",v1_pause_synth.tor,0.0,5,0,0.0,0.43449149475208104,,,,,lower
+201511198,v1,"TOR, pause handling (Candor)",v1_pause_candor.tor,0.0,5,0,0.0,0.43449149475208104,,,,,lower
+201511198,v1,"TOR, turn-taking (Candor, col 6)",v1_turntaking.tor,0.6,5,3,0.23071993220883708,0.8823817688407467,,,,,higher
+201511198,v1,Missed turn-taking rate,v1_turntaking.missed_rate,0.4,5,2,0.1176182311592533,0.769280067791163,,,,,lower
+201511198,v1,False turn-taking rate,false_tt.rate,0.4,10,4,0.16817758120350967,0.6873304525498135,,,,,lower
+201511198,v1,False turn-taking rate · side talk,false_tt.rate.side_talk,0.0,3,0,0.0,0.5615060804490177,,,,,lower
+201511198,v1,False turn-taking rate · TV / radio,false_tt.rate.tv_radio,1.0,3,3,0.43849391955098227,1.0,,,,,lower
+201511198,v1,False turn-taking rate · background speech,false_tt.rate.background,0.5,2,1,0.09452865480086614,0.9054713451991339,,,,,lower
+201511198,v1,False turn-taking rate · noise,false_tt.rate.noise,0.0,2,0,0.0,0.6576280471103807,,,,,lower
+201511198,v1,"Latency, turn-taking",v1_turntaking.latency,3.583999999999982,3,,,,3.583999999999982,4.563199999999986,3.5979999999999652,,lower
+201511198,v1,"TOR, interruption",v1_interrupt.tor,0.75,4,3,0.3006360524426366,0.9544139373553637,,,,,higher
+201511198,v1,"Judge score, interruption (0–5)",v1_interrupt.rating,3.3333333333333335,3,,,,,,3.3333333333333335,,higher
+201511198,v1,"Latency, interruption",v1_interrupt.latency,5.0280000000000005,3,,,,5.0280000000000005,6.1625625,4.364416666666666,,lower
+201511198,v1.5,interruption · Respond,v15_interruption.respond,0.2,5,1,0.03622316096978745,0.6244717358814613,,,,,higher
+201511198,v1.5,interruption · Resume,v15_interruption.resume,0.0,5,0,0.0,0.43449149475208104,,,,,lower
+201511198,v1.5,interruption · Uncertain,v15_interruption.uncertain,0.0,5,0,0.0,0.43449149475208104,,,,,
+201511198,v1.5,interruption · Unknown,v15_interruption.unknown,0.8,5,4,0.3755282641185388,0.9637768390302125,,,,,
+201511198,v1.5,interruption · stop latency,v15_interruption.t_stop,0.6739999999999999,3,,,,0.6739999999999999,0.7549999999999994,0.6806666666666662,,lower
+201511198,v1.5,interruption · response latency,v15_interruption.t_resp,4.689,2,,,,4.689,4.861800000000001,4.689,,lower
+201511198,v1.5,backchannel · Respond,v15_backchannel.respond,0.0,5,0,0.0,0.43449149475208104,,,,,lower
+201511198,v1.5,backchannel · Resume,v15_backchannel.resume,0.6,5,3,0.23071993220883708,0.8823817688407467,,,,,higher
+201511198,v1.5,backchannel · Uncertain,v15_backchannel.uncertain,0.0,5,0,0.0,0.43449149475208104,,,,,
+201511198,v1.5,backchannel · Unknown,v15_backchannel.unknown,0.4,5,2,0.1176182311592533,0.769280067791163,,,,,
+201511198,v1.5,backchannel · stop latency,v15_backchannel.t_stop,0.6679999999999993,1,,,,0.6679999999999993,0.6679999999999993,0.6679999999999993,,lower
+201511198,v1.5,backchannel · response latency,v15_backchannel.t_resp,5.6979999999999995,1,,,,5.6979999999999995,5.6979999999999995,5.6979999999999995,,lower
+201511198,v1.5,talking to others · Respond,v15_talking_to_other.respond,0.2,5,1,0.03622316096978745,0.6244717358814613,,,,,lower
+201511198,v1.5,talking to others · Resume,v15_talking_to_other.resume,0.4,5,2,0.1176182311592533,0.769280067791163,,,,,higher
+201511198,v1.5,talking to others · Uncertain,v15_talking_to_other.uncertain,0.0,5,0,0.0,0.43449149475208104,,,,,
+201511198,v1.5,talking to others · Unknown,v15_talking_to_other.unknown,0.4,5,2,0.1176182311592533,0.769280067791163,,,,,
+201511198,v1.5,talking to others · stop latency,v15_talking_to_other.t_stop,0.8120000000000007,4,,,,0.8120000000000007,0.8603000000000006,0.6390000000000005,,lower
+201511198,v1.5,talking to others · response latency,v15_talking_to_other.t_resp,3.43246875,2,,,,3.43246875,4.0908468749999995,3.43246875,,lower
+201511198,v1.5,background speech · Respond,v15_background.respond,0.2,5,1,0.03622316096978745,0.6244717358814613,,,,,lower
+201511198,v1.5,background speech · Resume,v15_background.resume,0.6,5,3,0.23071993220883708,0.8823817688407467,,,,,higher
+201511198,v1.5,background speech · Uncertain,v15_background.uncertain,0.0,5,0,0.0,0.43449149475208104,,,,,
+201511198,v1.5,background speech · Unknown,v15_background.unknown,0.2,5,1,0.03622316096978745,0.6244717358814613,,,,,
+201511198,v1.5,background speech · stop latency,v15_background.t_stop,0.6520000000000006,2,,,,0.6520000000000006,0.8680000000000003,0.6520000000000006,,lower
+201511198,v1.5,background speech · response latency,v15_background.t_resp,4.0200000000000005,2,,,,4.0200000000000005,4.7832,4.0200000000000005,,lower
+201511198,v1.5 voice,Δ wpm,voice.wpm,-95.6516579769048,1,,,,,,-95.6516579769048,,higher
+201511198,v1.5 voice,Δ pitch_mean,voice.pitch_mean,22.70155993226639,1,,,,,,22.70155993226639,,higher
+201511198,v1.5 voice,Δ pitch_sd,voice.pitch_sd,13.246845118818378,1,,,,,,13.246845118818378,,higher
+201511198,v1.5 voice,Δ intensity_mean,voice.intensity_mean,0.45482475631201424,1,,,,,,0.45482475631201424,,lower
+201511198,v1.5 voice,Δ intensity_sd,voice.intensity_sd,0.31093554965806547,1,,,,,,0.31093554965806547,,higher
+201511198,v1.5 voice,Δ utmosv2,voice.utmosv2,,0,,,,,,,,no drop
