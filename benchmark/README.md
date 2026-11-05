@@ -71,6 +71,7 @@ Or interactively: `.venv/bin/python -m fdbench`. Results land in `fd-benchmark/r
   (tags `benchmark-1` to `benchmark-3`). Run this one with the same settings (5 rounds,
   seed 874034, GPT-4o judge, faster-whisper small) so the two compare directly. This
   version's own runs go in `results/` here; the first, compared with alfred-sts, is
-  `results/2026-11-05/report.md` (tag `benchmark-1`).
+  `results/2026-11-05/report.md` (tag `benchmark-1`); the second, after the fixes, is
+  `results/2026-11-05-benchmark-2/report.md` (tag `benchmark-2`).
 - **Idle noise:** in normal use the wake word filters background noise; here every clip reaches
   Alfred, so "false turn-taking" scores are stricter than real life.
