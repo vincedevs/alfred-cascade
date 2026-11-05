@@ -25,6 +25,7 @@ from pipecat.workers.runner import WorkerRunner
 
 import alfred.voice as alfred_voice
 from alfred.config import Config
+from alfred.speakable import SpeakableText
 from benchmark.prompts import benchmark_prompt
 
 ONE_HOUR = 3600.0  # "idle" time for Pipecat: longer than any round, so it never fires
@@ -43,7 +44,16 @@ async def build_benchmark_conversation(transport, config: Config):
     context = LLMContext(messages=[], tools=tools)
     user_turns, alfred_turns = LLMContextAggregatorPair(context)
     pipeline = Pipeline(
-        [transport.input(), stt, user_turns, llm, tts, transport.output(), alfred_turns]
+        [
+            transport.input(),
+            stt,
+            user_turns,
+            llm,
+            SpeakableText(),
+            tts,
+            transport.output(),
+            alfred_turns,
+        ]
     )
     worker = alfred_voice.create_worker(pipeline, replace(config, idle_seconds=ONE_HOUR))
 

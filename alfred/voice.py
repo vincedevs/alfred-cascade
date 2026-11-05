@@ -7,7 +7,8 @@ Deepgram Flux turns speech into text and also decides when you've finished speak
 when you start talking over Alfred, which stops him). GPT-6 Luna answers, with OpenAI's
 hosted web search, Alfred's own tools for jobs, memory and reminders (tools.py) and Wayne
 Manor's for the house (house.py), all called directly: there's no hand-off to another
-model. Cartesia speaks the answer in Alfred's voice.
+model. Cartesia speaks the answer in Alfred's voice, minus links and markdown
+(speakable.py).
 
 Alfred also speaks up without being asked, about jobs and reminders (announcer.py), and
 greets you if you only said his name (greeting.py).
@@ -57,6 +58,7 @@ from alfred.greeting import SleepCommand, greet_unless_asked
 from alfred.house import wayne_manor_tools
 from alfred.idle import QuietTimer, check_every
 from alfred.services import Services
+from alfred.speakable import SpeakableText
 from alfred.tools import job_tools, memory_tools, reminder_tools
 from alfred.transport import EngineTransport
 
@@ -82,6 +84,7 @@ NO_HOUSE = (
 )
 LOOKUP_SECONDS = 30  # an answer gets this long (a slow web search) before quiet counts
 SAY_WHEN_FREE_EVERY = 0.1  # news waits while you're speaking; checked this often
+SAY_WITHIN = 10.0  # ...but no longer than this, in case the end of your turn went unnoticed
 # The voice starts once it has this much of the reply (or a moment of it), word by word,
 # instead of waiting for a whole sentence: a haiku without full stops waited 1.3 s.
 TTS_BUFFER_MS = 300
@@ -131,6 +134,7 @@ class Conversation:
                     self.stt,
                     user_turns,
                     self.llm,
+                    SpeakableText(),  # no links or markdown read aloud
                     self.tts,
                     self.transport.output(),
                     alfred_turns,
@@ -191,8 +195,10 @@ class Conversation:
         self.llm.create_task(self._say_when_free(note), "say")
 
     async def _say_when_free(self, note: str) -> None:
-        while self._user_speaking:
+        waited = 0.0
+        while self._user_speaking and waited < SAY_WITHIN:
             await asyncio.sleep(SAY_WHEN_FREE_EVERY)
+            waited += SAY_WHEN_FREE_EVERY
         message = {"role": "developer", "content": note}
         await self.worker.queue_frame(LLMMessagesAppendFrame(messages=[message], run_llm=True))
 
@@ -235,7 +241,11 @@ class Conversation:
         self._user_speaking = False
 
     def _line(self, who: str, text: str) -> None:
-        """Each thing said. Only Alfred answering keeps him awake (idle.py)."""
+        """Each thing said. Only Alfred answering keeps him awake (idle.py): an empty
+        reply (he stayed silent for side talk or a TV) doesn't."""
+        if who == "Alfred" and not text.strip():
+            self._waiting_since = None  # he decided not to answer
+            return
         self.transcript.append(f"{who}: {text}")
         if who == "You":
             self._waiting_since = time.monotonic()

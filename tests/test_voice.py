@@ -42,6 +42,30 @@ def test_news_waits_until_you_have_finished_speaking(monkeypatch):
     assert frame.messages == [{"role": "developer", "content": "News."}]
 
 
+def test_news_is_said_anyway_if_your_turn_never_seems_to_end(monkeypatch):
+    monkeypatch.setattr(voice, "SAY_WHEN_FREE_EVERY", 0.005)
+    monkeypatch.setattr(voice, "SAY_WITHIN", 0.03)
+    conversation = SimpleNamespace(_user_speaking=True, worker=FakeWorker())
+    asyncio.run(voice.Conversation._say_when_free(conversation, "News."))
+    assert len(conversation.worker.frames) == 1
+
+
+def test_an_empty_reply_does_not_keep_alfred_awake():
+    """Alfred stays silent for side talk or a TV: that isn't him answering."""
+    calls = []
+    conversation = SimpleNamespace(
+        transcript=[],
+        _waiting_since=1.0,
+        timer=SimpleNamespace(activity=lambda: calls.append("activity")),
+        sleep=SimpleNamespace(alfred_said=lambda text: calls.append(text)),
+    )
+    voice.Conversation._line(conversation, "Alfred", "")
+    assert calls == [] and conversation.transcript == []
+    assert conversation._waiting_since is None
+    voice.Conversation._line(conversation, "Alfred", "Very good, sir.")
+    assert calls == ["activity", "Very good, sir."]
+
+
 def test_interrupting_alfred_empties_the_speaker(monkeypatch):
     stopped = []
 
