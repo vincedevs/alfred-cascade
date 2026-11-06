@@ -13,12 +13,15 @@ Your settings (.env) and the code are never touched. Alfred must be stopped firs
 import argparse
 import re
 import shutil
+import sqlite3
 import sys
 from pathlib import Path
 
-from alfred.config import ConfigError, load_config
+from alfred.config import Config, ConfigError, load_config
+from alfred.db import Database
 from alfred.lock import only_one_alfred
 from alfred.logs import LOG_DIR
+from alfred.saved import mark_gone
 from alfred.web import WWW
 
 WHAT = {
@@ -92,7 +95,30 @@ def main() -> None:
         return
     for path in found:
         delete(path)
+    if args.what in ("files", "web"):
+        mark_deleted_in_history(config)
     print("Done. Alfred starts fresh next time.")
+
+
+def mark_deleted_in_history(config: Config) -> None:
+    """Past job results keep saying where they saved things: mark the ones just deleted
+    "(no longer there)", so Alfred never gives a dead link (saved.py)."""
+    if not config.database_path.exists():
+        return
+    try:
+        db = Database(config.database_path)
+        changed = {}
+        for rowid, text in db.job_history():
+            marked = mark_gone(text, config.workspace_dir)
+            if marked != text:
+                changed[rowid] = marked
+        db.rewrite_history(changed)
+        db.close()
+    except sqlite3.DatabaseError as error:
+        print(f"Couldn't update the history ({error}); Alfred still checks when he looks.")
+        return
+    if changed:
+        print(f"Marked {len(changed)} past job result(s) as no longer there.")
 
 
 if __name__ == "__main__":

@@ -269,3 +269,22 @@ def test_no_sandbox_means_no_shell(tmp_path, monkeypatch):
     monkeypatch.setattr(tasks_module.shutil, "which", lambda _tool: None)
     _, runner = make(tmp_path, quick_agent)
     assert "Bash" not in runner._tools and "WebSearch" in runner._tools
+
+
+def test_task_status_finds_an_older_job_by_what_it_was(tmp_path):
+    async def main():
+        db, runner = make(tmp_path, quick_agent)
+        _, task_status, _, _ = tools_for(runner, db)
+        snake = db.add_task("make me a snake game")
+        db.finish_task(snake, "done", "Saved: Snake game, link http://raspy.local:8080/snake/")
+        for n in range(4):  # newer jobs push it out of the latest three
+            db.add_task(f"weather in city {n}")
+        params = FakeParams()
+        await task_status(params, about="the snake game")
+        (job,) = params.result["jobs"]
+        assert job["task_id"] == snake
+        assert job["result"].endswith("(no longer there)")  # its page isn't in www/
+        await task_status(params)
+        assert snake not in [job["task_id"] for job in params.result["jobs"]]
+
+    asyncio.run(main())

@@ -42,3 +42,8 @@ Alfred reads your final answer aloud, so write it to be heard:
 - Lead with the answer in one or two sentences, then at most three short supporting points.
 - Plain spoken English: no Markdown, tables, URLs or emojis. Say numbers the way people say them.
 - Under 120 words. Longer detail belongs in a saved file.
+- If you saved anything the user may want later, end with one last line naming each thing
+  and where it is, folders and files relative to the current folder, for example:
+  `Saved: Snake game, link http://raspy.local:8080/snake/, folder www/snake; budget notes, file budget-notes.md`
+  Alfred keeps this line to find things later and never reads it out as written: it is
+  the one place for a link or a file name.

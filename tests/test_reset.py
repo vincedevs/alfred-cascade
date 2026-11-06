@@ -70,3 +70,22 @@ def test_asks_first(alfred_home, monkeypatch):
     monkeypatch.setattr("builtins.input", lambda prompt: "no")
     run(monkeypatch, "profile")
     assert (data / "profile.md").exists()
+
+
+def test_deleting_the_web_pages_marks_them_in_the_history(alfred_home, monkeypatch):
+    from alfred.db import Database
+
+    data, _, _ = alfred_home
+    (data / "alfred.db").unlink()  # a real database this time
+    db = Database(data / "alfred.db")
+    snake = db.add_task("make me a snake game")
+    db.finish_task(snake, "done", "Saved: Snake game, link http://raspy.local:8080/snake/")
+    ramen = db.add_task("find ramen")
+    db.finish_task(ramen, "done", "Ramen Nagi is the favourite.")
+    db.close()
+    run(monkeypatch, "web", "--yes")
+    db = Database(data / "alfred.db")
+    texts = sorted(text for _, text in db.job_history())
+    assert texts[0].startswith("You asked: find ramen") and "(no longer" not in texts[0]
+    assert texts[1].endswith("(no longer there)")  # kept, but never given as a link
+    db.close()

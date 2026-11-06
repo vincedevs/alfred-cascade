@@ -75,6 +75,7 @@ class TaskRunner:
         about_user: Callable[[], str] = lambda: "",
     ):
         self._db = db
+        self.workspace = config.workspace_dir  # where jobs save things (saved.py)
         self._config = config
         self._questions = questions
         self._audit = audit

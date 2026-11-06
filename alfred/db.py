@@ -135,6 +135,17 @@ class Database:
         rows = self._conn.execute("SELECT * FROM tasks ORDER BY id DESC LIMIT ?", (limit,))
         return [_to_task(row) for row in rows]
 
+    def find_tasks(self, words: list[str], limit: int = 3) -> list[Task]:
+        """The newest jobs whose request or result has all of the words."""
+        if not words:
+            return []
+        where = " AND ".join(["(request || ' ' || COALESCE(result, '')) LIKE ?"] * len(words))
+        rows = self._conn.execute(
+            f"SELECT * FROM tasks WHERE {where} ORDER BY id DESC LIMIT ?",
+            [f"%{word}%" for word in words] + [limit],
+        )
+        return [_to_task(row) for row in rows]
+
     def running_tasks(self) -> list[Task]:
         rows = self._conn.execute("SELECT * FROM tasks WHERE status = 'running' ORDER BY id")
         return [_to_task(row) for row in rows]
@@ -232,6 +243,19 @@ class Database:
             (_any_of(words), limit),
         )
         return [(row["text"], row["created_at"]) for row in rows]
+
+    def job_history(self) -> list[tuple[int, str]]:
+        """Every job result in the history: (its row id, its text)."""
+        rows = self._conn.execute("SELECT rowid, text FROM history WHERE kind = 'job'")
+        return [(row["rowid"], row["text"]) for row in rows]
+
+    def rewrite_history(self, changed: dict[int, str]) -> None:
+        """Replace the text of some history entries, by row id."""
+        self._conn.executemany(
+            "UPDATE history SET text = ? WHERE rowid = ?",
+            [(text, rowid) for rowid, text in changed.items()],
+        )
+        self._conn.commit()
 
     def delete_history(self, words: list[str]) -> int:
         """Delete entries containing all of the words. Returns how many."""

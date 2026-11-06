@@ -5,13 +5,16 @@ Each tool is a plain async function. Pipecat reads its name, docstring and argum
 to describe it to the model, and runs it here when the model calls it.
 """
 
+from pathlib import Path
+
 from pipecat.services.llm_service import FunctionCallParams
 
 from alfred.db import Database, Reminder, Task
-from alfred.memory import Memory
+from alfred.memory import Memory, words_in
 from alfred.questions import Questions
 from alfred.reminders import SNOOZE_MINUTES, Reminders
 from alfred.ringer import Ringer
+from alfred.saved import mark_gone
 from alfred.tasks import TaskRunner
 
 QUICK_ANSWER_SECONDS = 12  # a job done within this is answered straight away
@@ -40,20 +43,27 @@ def job_tools(runner: TaskRunner, db: Database, questions: Questions) -> list:
             )
         else:
             db.mark_told([task_id])
-            await params.result_callback(_describe(task))
+            await params.result_callback(_describe(task, runner.workspace))
 
-    async def task_status(params: FunctionCallParams, task_id: int = 0):
+    async def task_status(params: FunctionCallParams, task_id: int = 0, about: str = ""):
         """Check on background jobs: whether they are still running, and their results.
 
         Args:
             task_id: The job to check, or 0 for the most recent jobs.
+            about: Or a few words to find a job by ("snake game"), when task_id is 0.
         """
-        tasks = [db.get_task(task_id)] if task_id else db.recent_tasks(3)
+        if task_id:
+            tasks = [db.get_task(task_id)]
+        else:
+            tasks = db.find_tasks(words_in(about)) if about else db.recent_tasks(3)
         tasks = [task for task in tasks if task]
         db.mark_told([task.id for task in tasks if task.status != "running"])
         waiting = [{"task_id": q.task_id, "question": q.text} for q in questions.waiting()]
         await params.result_callback(
-            {"jobs": [_describe(task) for task in tasks], "questions_for_user": waiting}
+            {
+                "jobs": [_describe(task, runner.workspace) for task in tasks],
+                "questions_for_user": waiting,
+            }
         )
 
     async def answer_job(params: FunctionCallParams, task_id: int, answer: str):
@@ -103,14 +113,16 @@ def memory_tools(memory: Memory) -> list:
         await params.result_callback({"remembered": fact, "already_known": not new})
 
     async def recall(params: FunctionCallParams, about: str = ""):
-        """Look up what Alfred knows about the user, and past conversations and job results
-        ("what did you find about ramen yesterday?").
+        """Look up what Alfred knows about the user, past conversations, and what past jobs
+        found or made, and where they saved it ("what did you find about ramen?", "where's
+        the snake game?"). A result's "Saved:" line has the link and folder.
 
         Args:
             about: What to look for, in a few words. Empty: just what Alfred knows about them.
         """
         found = memory.search(about) if about else []
-        await params.result_callback({"about_the_user": memory.facts(), "history": found})
+        facts = memory.facts_about(about)
+        await params.result_callback({"about_the_user": facts, "history": found})
 
     async def forget(params: FunctionCallParams, about: str):
         """Forget facts about the user, and past conversations, about something.
@@ -272,10 +284,11 @@ def _describe_reminder(reminder: Reminder, reminders: Reminders) -> dict:
     return described
 
 
-def _describe(task: Task) -> dict:
+def _describe(task: Task, workspace: Path) -> dict:
+    """A job for the model, with anything it saved that has since gone marked (saved.py)."""
     return {
         "task_id": task.id,
         "request": task.request,
         "status": task.status,
-        "result": task.result,
+        "result": mark_gone(task.result, workspace) if task.result else task.result,
     }

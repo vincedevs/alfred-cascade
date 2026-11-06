@@ -4,7 +4,8 @@ import asyncio
 
 from alfred.config import Config
 from alfred.db import Database
-from alfred.memory import Memory, words_in
+from alfred.memory import PROFILE_IN_PROMPTS, Memory, words_in
+from alfred.saved import GONE
 
 
 def make(tmp_path):
@@ -97,3 +98,40 @@ def test_tiny_conversations_are_not_worth_a_claude_call(tmp_path):
         assert calls == []
 
     asyncio.run(main())
+
+
+def test_a_job_that_saved_something_is_found_with_where_it_is(tmp_path):
+    db, memory = make(tmp_path)
+    (tmp_path / "workspace" / "www" / "snake").mkdir(parents=True)
+    task_id = db.add_task("make me a snake game")
+    saved = "Saved: Snake game, link http://raspy.local:8080/snake/, folder www/snake"
+    db.finish_task(task_id, "done", f"It's ready.\n{saved}")
+    (found,) = memory.search("where's the snake game?")
+    assert found.endswith(saved)  # still there: no mark
+
+
+def test_a_deleted_page_is_never_given_as_a_link(tmp_path):
+    db, memory = make(tmp_path)
+    task_id = db.add_task("make me a snake game")
+    db.finish_task(task_id, "done", "Saved: Snake game, link http://raspy.local:8080/snake/")
+    (found,) = memory.search("snake game")
+    assert found.endswith(GONE)
+
+
+def test_prompts_get_only_the_newest_facts(tmp_path):
+    _, memory = make(tmp_path)
+    for n in range(PROFILE_IN_PROMPTS + 5):
+        memory.remember(f"Likes colour{n}")
+    text = memory.profile_text()
+    assert "Likes colour0." not in text and f"Likes colour{PROFILE_IN_PROMPTS + 4}." in text
+    assert "5 older facts" in text
+    assert memory.facts_about("colour0") == ["Likes colour0."]  # recall still finds it
+
+
+def test_recall_without_a_match_gives_every_fact(tmp_path):
+    _, memory = make(tmp_path)
+    memory.remember("Is vegetarian.")
+    memory.remember("Mom likes tulips.")
+    assert memory.facts_about("tulips") == ["Mom likes tulips."]
+    assert memory.facts_about("snake game") == ["Is vegetarian.", "Mom likes tulips."]
+    assert memory.facts_about("") == ["Is vegetarian.", "Mom likes tulips."]

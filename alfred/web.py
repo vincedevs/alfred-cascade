@@ -86,8 +86,8 @@ def job_text(port: int) -> str:
         "HTML, CSS and JavaScript all inside it, nothing to install or run to view it. If a "
         "framework really helps, build it into plain files in that folder. Never put secrets "
         "or keys in a page. Check the code for errors before you finish. The user opens it at "
-        f"{address(port)}<short-name>/ from any device on their home network: end your result "
-        "with that address."
+        f"{address(port)}<short-name>/ from any device on their home network: give that "
+        "address as the page's link in your Saved line."
     )
 
 

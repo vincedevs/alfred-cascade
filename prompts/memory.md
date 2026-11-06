@@ -22,3 +22,5 @@ new_facts: lasting facts about the user that are not already known, each a short
 summary: one or two plain sentences on what was discussed or decided, with names, places and
 dates, so it can be found later ("Asked for ramen places in Makati; Alfred suggested Ramen
 Nagi and Mendokoro."). Empty if the conversation had nothing worth finding later.
+- Never record links, file names, folders or where something was saved: job results keep
+  those, and what Alfred said about them may be wrong.

@@ -18,7 +18,9 @@ from loguru import logger
 
 from alfred.config import Config, load_prompt
 from alfred.db import Database
+from alfred.saved import mark_gone
 
+PROFILE_IN_PROMPTS = 30  # newest facts every prompt gets; recall finds the older ones
 TOO_SHORT_TO_LEARN = 8  # words you said: "thanks, Alfred" isn't worth a Claude call
 COMMON_WORDS = set(
     "the a an and or of to in on at for is are was were it my me i you your what did do "
@@ -70,13 +72,24 @@ class Memory:
         logger.info(f"Forgot {len(removed)} fact(s) and {entries} history entries about {about!r}")
         return removed
 
+    def facts_about(self, about: str) -> list[str]:
+        """The facts sharing a word with `about`, or all of them when none do (or it's
+        empty): a long profile isn't sent whole for every lookup."""
+        wanted = set(words_in(about))
+        facts = self.facts()
+        matching = [fact for fact in facts if wanted & set(words_in(fact))]
+        return matching or facts
+
     def profile_text(self) -> str:
-        """For prompts: the facts as a short section, or nothing."""
+        """For prompts: the newest PROFILE_IN_PROMPTS facts as a short section, or nothing.
+        Older ones stay in the profile; recall finds them."""
         facts = self.facts()
         if not facts:
             return ""
-        lines = "\n".join(f"- {fact}" for fact in facts)
-        return f"\n\n## What you know about the user (from memory)\n{lines}"
+        lines = "\n".join(f"- {fact}" for fact in facts[-PROFILE_IN_PROMPTS:])
+        older = len(facts) - PROFILE_IN_PROMPTS
+        more = f"\n({older} older facts aren't listed here: recall finds them.)" if older > 0 else ""
+        return f"\n\n## What you know about the user (from memory)\n{lines}{more}"
 
     def _write(self, facts: list[str]) -> None:
         self._path.parent.mkdir(parents=True, exist_ok=True)
@@ -87,8 +100,14 @@ class Memory:
     # The history
 
     def search(self, about: str, limit: int = 5) -> list[str]:
+        """Past job results and conversation summaries about something, best first, with
+        anything they saved that has since been deleted marked (saved.py)."""
         found = self._db.search_history(words_in(about), limit)
-        return [f"({self._config.local(when):%a %d %b %Y}) {text}" for text, when in found]
+        workspace = self._config.workspace_dir
+        return [
+            f"({self._config.local(when):%a %d %b %Y}) {mark_gone(text, workspace)}"
+            for text, when in found
+        ]
 
     # Learning after a conversation
 
