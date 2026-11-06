@@ -39,3 +39,7 @@ select = ["E", "F", "W", "I", "UP", "B"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+filterwarnings = [
+    # Pipecat (pipecat/audio/utils.py) imports audioop, which Python 3.12 still has: not ours to fix
+    "ignore:'audioop' is deprecated:DeprecationWarning",
+]
