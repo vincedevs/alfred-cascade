@@ -149,3 +149,5 @@ def test_running_out_of_credits_names_the_service():
     assert voice.whose_error(error) == "Cartesia"
     assert voice.whose_error(SimpleNamespace(error="insufficient_quota", processor=None)) == "OpenAI"
     assert not voice.NO_CREDITS.search("timeout after 4020 ms")
+    cartesia = "Error: {'error_code': 'quota_exceeded', 'message': 'Generation stopped'}"
+    assert voice.NO_CREDITS.search(cartesia)  # what Cartesia actually sent on the Pi

@@ -107,7 +107,8 @@ INTERRUPT_WORDS = 3
 REASONING = "none"
 # How a service says the account has no credits left (then nothing works until you add some)
 NO_CREDITS = re.compile(
-    r"no credits remaining|insufficient_quota|exceeded your current quota|insufficient credit"
+    r"no credits remaining|insufficient_quota|exceeded your current quota|quota.exceeded"
+    r"|insufficient credit"
     r"|out of credits|payment required|\b402\b",
     re.IGNORECASE,
 )
