@@ -17,7 +17,8 @@ from alfred.ringer import Ringer
 from alfred.saved import mark_gone
 from alfred.tasks import TaskRunner
 
-QUICK_ANSWER_SECONDS = 12  # a job done within this is answered straight away
+QUICK_ANSWER_SECONDS = 3  # a job done within this is answered straight away (voice.py
+# has already said "Right away, sir.", so it's never long in silence)
 
 
 def job_tools(runner: TaskRunner, db: Database, questions: Questions) -> list:
@@ -37,8 +38,8 @@ def job_tools(runner: TaskRunner, db: Database, questions: Questions) -> list:
                 {
                     "task_id": task_id,
                     "status": "running",
-                    "note": "Still working. Tell the user in a few words that you're on "
-                    "it; the result is announced when it's ready.",
+                    "note": "Still working. You've said you're on it: now tell the user in a "
+                    "few words that they'll hear a chime when it's ready.",
                 }
             )
         else:

@@ -27,7 +27,7 @@ class FakeWorker:
 
 def test_news_waits_until_you_have_finished_speaking(monkeypatch):
     monkeypatch.setattr(voice, "SAY_WHEN_FREE_EVERY", 0.005)
-    conversation = SimpleNamespace(_user_speaking=True, worker=FakeWorker())
+    conversation = SimpleNamespace(_user_speaking=True, _waiting_since=None, worker=FakeWorker())
 
     async def main():
         saying = asyncio.create_task(voice.Conversation._say_when_free(conversation, "News."))
@@ -45,7 +45,7 @@ def test_news_waits_until_you_have_finished_speaking(monkeypatch):
 def test_news_is_said_anyway_if_your_turn_never_seems_to_end(monkeypatch):
     monkeypatch.setattr(voice, "SAY_WHEN_FREE_EVERY", 0.005)
     monkeypatch.setattr(voice, "SAY_WITHIN", 0.03)
-    conversation = SimpleNamespace(_user_speaking=True, worker=FakeWorker())
+    conversation = SimpleNamespace(_user_speaking=True, _waiting_since=None, worker=FakeWorker())
     asyncio.run(voice.Conversation._say_when_free(conversation, "News."))
     assert len(conversation.worker.frames) == 1
 
@@ -88,5 +88,64 @@ def test_mm_hmm_does_not_stop_alfred_but_a_sentence_does():
     turns = user_turns._params.user_turn_strategies
     (start,) = turns.start
     assert isinstance(start, MinWordsUserTurnStartStrategy)
+    assert isinstance(start, voice.NotHisEcho)  # and his own voice heard back doesn't
     assert start._min_words == voice.INTERRUPT_WORDS > 2  # "mm-hmm yeah" is two
     assert [type(stop) for stop in turns.stop] == [EagerUserTurnStopStrategy]
+
+
+def test_news_waits_until_alfred_has_answered_you(monkeypatch):
+    """Said while he's still writing his answer, news would get into it and be said twice."""
+    monkeypatch.setattr(voice, "SAY_WHEN_FREE_EVERY", 0.005)
+    conversation = SimpleNamespace(_user_speaking=False, _waiting_since=1.0, worker=FakeWorker())
+
+    async def main():
+        saying = asyncio.create_task(voice.Conversation._say_when_free(conversation, "News."))
+        await asyncio.sleep(0.03)
+        assert conversation.worker.frames == []  # his answer isn't out yet
+        conversation._waiting_since = None
+        await saying
+
+    asyncio.run(main())
+    assert len(conversation.worker.frames) == 1
+
+
+def test_the_same_news_twice_is_said_once():
+    started = []
+    conversation = SimpleNamespace(
+        _said_notes={}, llm=SimpleNamespace(create_task=lambda job, name: started.append(job))
+    )
+    conversation._say_when_free = lambda note: SimpleNamespace(close=lambda: None, note=note)
+    voice.Conversation.say(conversation, "The game is ready.")
+    voice.Conversation.say(conversation, "The game is ready.")
+    voice.Conversation.say(conversation, "Your timer is done.")
+    assert [job.note for job in started] == ["The game is ready.", "Your timer is done."]
+
+
+def test_starting_a_job_is_said_at_once():
+    said, started = [], []
+
+    async def say_aloud(text):
+        said.append(text)
+
+    conversation = SimpleNamespace(
+        tool_calls=0,
+        timer=SimpleNamespace(activity=lambda: None),
+        llm=SimpleNamespace(create_task=lambda job, name: started.append(job)),
+        _say_aloud=say_aloud,
+    )
+    voice.Conversation._used_tools(conversation, [SimpleNamespace(function_name="recall")])
+    assert started == []  # a quick tool: he answers himself
+    voice.Conversation._used_tools(conversation, [SimpleNamespace(function_name="do_task")])
+    asyncio.run(started[0])
+    assert said == [voice.JOB_STARTED] and conversation.tool_calls == 2
+
+
+def test_running_out_of_credits_names_the_service():
+    class CartesiaTTSService:
+        pass
+
+    error = SimpleNamespace(error="402 Payment Required", processor=CartesiaTTSService())
+    assert voice.NO_CREDITS.search(error.error)
+    assert voice.whose_error(error) == "Cartesia"
+    assert voice.whose_error(SimpleNamespace(error="insufficient_quota", processor=None)) == "OpenAI"
+    assert not voice.NO_CREDITS.search("timeout after 4020 ms")

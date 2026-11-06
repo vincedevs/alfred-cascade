@@ -21,6 +21,8 @@ from pipecat.frames.frames import (
 )
 from pipecat.processors.frame_processor import FrameDirection, FrameProcessor
 
+from alfred.echo import EchoGuard
+
 UNSPOKEN = str.maketrans("", "", "*`#[]")  # markdown marks nobody says
 LINK = re.compile(r"\[([^\]]*)\]\([^)]*\)")  # [label](link): keep the label
 ADDRESS = re.compile(r"(https?://|www\.)\S*", re.IGNORECASE)
@@ -31,18 +33,23 @@ HOLD_AT_MOST = 400  # an unclosed bracket is said after all once it's this long
 class SpeakableText(FrameProcessor):
     """Sits between the LLM and the TTS and cleans the reply as it streams through."""
 
-    def __init__(self):
+    def __init__(self, echo: EchoGuard | None = None):
         super().__init__()
         self._text = Speakable()
+        self._echo = echo  # told what Alfred says, so his echo isn't taken for you
 
     async def process_frame(self, frame: Frame, direction: FrameDirection) -> None:
         await super().process_frame(frame, direction)
         if isinstance(frame, LLMTextFrame) and direction == FrameDirection.DOWNSTREAM:
             frame.text = self._text.feed(frame.text)
             if frame.text:
+                if self._echo:
+                    self._echo.alfred_said(frame.text)
                 await self.push_frame(frame, direction)
             return
         if isinstance(frame, LLMFullResponseEndFrame) and (rest := self._text.flush()):
+            if self._echo:
+                self._echo.alfred_said(rest)
             await self.push_frame(LLMTextFrame(rest), direction)
         elif isinstance(frame, (InterruptionFrame, LLMFullResponseStartFrame)):
             self._text.reset()  # whatever was held back belongs to a reply that's over

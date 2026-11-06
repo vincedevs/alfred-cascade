@@ -21,6 +21,7 @@ as Alfred has said goodnight (greeting.py).
 """
 
 import asyncio
+import re
 import time
 
 from loguru import logger
@@ -63,6 +64,7 @@ from alfred.audio import SAMPLE_RATE, AudioEngine, load_sound
 from alfred.carry_on import CarryOnAfterAside
 from alfred.chat import chat_tools
 from alfred.config import PROJECT_ROOT, Config, load_prompt
+from alfred.echo import EchoGuard
 from alfred.greeting import SleepCommand, greet_unless_asked
 from alfred.house import wayne_manor_tools
 from alfred.idle import QuietTimer, check_every
@@ -94,6 +96,7 @@ NO_HOUSE = (
 LOOKUP_SECONDS = 30  # an answer gets this long (a slow web search) before quiet counts
 SAY_WHEN_FREE_EVERY = 0.1  # news waits while you're speaking; checked this often
 SAY_WITHIN = 10.0  # ...but no longer than this, in case the end of your turn went unnoticed
+REPEAT_SECONDS = 30.0  # the same news twice within this is said only once
 # The voice starts once it has this much of the reply (or a moment of it), word by word,
 # instead of waiting for a whole sentence: a haiku without full stops waited 1.3 s.
 TTS_BUFFER_MS = 150
@@ -102,8 +105,14 @@ TTS_BUFFER_MS = 150
 INTERRUPT_WORDS = 3
 # GPT-6 Luna answers straight away, without reasoning first: the fastest setting.
 REASONING = "none"
-# How OpenAI says the account has no credits left (then nothing works until you add some)
-NO_CREDITS = ("no credits remaining", "insufficient_quota", "exceeded your current quota")
+# How a service says the account has no credits left (then nothing works until you add some)
+NO_CREDITS = re.compile(
+    r"no credits remaining|insufficient_quota|exceeded your current quota|insufficient credit"
+    r"|out of credits|payment required|\b402\b",
+    re.IGNORECASE,
+)
+SERVICES = ("Deepgram", "Cartesia", "OpenAI")  # whose credits: named in the error's processor
+JOB_STARTED = "Right away, sir."  # said the moment a job starts, so there's no silence
 
 
 async def run_conversation(
@@ -126,6 +135,8 @@ class Conversation:
         self._user_spoke = asyncio.Event()  # Flux heard the user start speaking
         self._user_speaking = False
         self._waiting_since: float | None = None  # you spoke; Alfred hasn't answered yet
+        self._said_notes: dict[str, float] = {}  # news Alfred was given, and when
+        self.echo = EchoGuard()  # his own voice heard back isn't you interrupting
         self.transcript: list[str] = []
         self.tool_calls = 0
         extra = background(s) + ("" if house_tools else NO_HOUSE)
@@ -140,7 +151,7 @@ class Conversation:
             create_tts(s.config),
         )
         self.transport = EngineTransport(engine)
-        user_turns, alfred_turns = create_turns(context)
+        user_turns, alfred_turns = create_turns(context, self.echo)
         self.worker = create_worker(
             Pipeline(
                 [
@@ -149,7 +160,7 @@ class Conversation:
                     user_turns,
                     self.llm,
                     CarryOnAfterAside(),  # cut off by words not for him: he carries on
-                    SpeakableText(),  # no links or markdown read aloud
+                    SpeakableText(self.echo),  # no links or markdown read aloud
                     self.tts,
                     self.transport.output(),
                     alfred_turns,
@@ -174,7 +185,7 @@ class Conversation:
         user_turns.add_event_handler("on_user_turn_started", self._user_started)
         user_turns.add_event_handler("on_user_turn_stopped", self._user_stopped)
         self.stt.add_event_handler("on_connected", self._listening)
-        log_conversation(self.llm, user_turns, alfred_turns, self._line, self._used_tool)
+        log_conversation(self.llm, user_turns, alfred_turns, self._line, self._used_tools)
 
     async def run(self) -> list[str] | None:
         s = self.services
@@ -206,12 +217,19 @@ class Conversation:
 
     def say(self, note: str) -> None:
         """Alfred says this now, without being asked (announcer.py), once you've finished
-        speaking: a plain model would otherwise talk over you."""
+        speaking and he has answered you: a plain model would otherwise talk over you, or
+        say it twice (once in the answer it's writing, once for this). The same news twice
+        within REPEAT_SECONDS is said once."""
+        now = time.monotonic()
+        if now - self._said_notes.get(note, -REPEAT_SECONDS) < REPEAT_SECONDS:
+            logger.info("Not repeating news Alfred was just given")
+            return
+        self._said_notes[note] = now
         self.llm.create_task(self._say_when_free(note), "say")
 
     async def _say_when_free(self, note: str) -> None:
         waited = 0.0
-        while self._user_speaking and waited < SAY_WITHIN:
+        while (self._user_speaking or self._waiting_since is not None) and waited < SAY_WITHIN:
             await asyncio.sleep(SAY_WHEN_FREE_EVERY)
             waited += SAY_WHEN_FREE_EVERY
         message = {"role": "developer", "content": note}
@@ -245,7 +263,8 @@ class Conversation:
             self.llm.create_task(greeting, "greet")
 
     async def _say_aloud(self, text: str) -> None:
-        """Speak these exact words, without the model (the greeting)."""
+        """Speak these exact words, without the model (the greeting, JOB_STARTED)."""
+        self.echo.alfred_said(f" {text} ")
         await self.worker.queue_frame(TTSSpeakFrame(text))
 
     async def _user_started(self, _aggregator, _strategy) -> None:
@@ -268,13 +287,18 @@ class Conversation:
             self.announcer.user_said(text)
             self.sleep.user_said(text)
         else:
-            self._waiting_since = None
+            if text.strip() != JOB_STARTED:  # said for him as a job starts: not his answer
+                self._waiting_since = None
             self.timer.activity()
             self.sleep.alfred_said(text)
 
-    def _used_tool(self) -> None:
+    def _used_tools(self, calls) -> None:
+        """Alfred called tools. Starting a job, he says so at once: the job takes a few
+        seconds to answer, and GPT-6 Luna says nothing until it does."""
         self.tool_calls += 1
         self.timer.activity()
+        if any(call.function_name == "do_task" for call in calls):
+            self.llm.create_task(self._say_aloud(JOB_STARTED), "job started")
 
     def _looking_up(self) -> bool:
         """Is Alfred probably still working on an answer? (A slow web search sends
@@ -284,23 +308,28 @@ class Conversation:
 
 
 def end_if_out_of_credits(worker) -> asyncio.Event:
-    """OpenAI refuses everything once the API credits run out: say so in the log and end
-    the conversation at once, instead of sitting there silent. The event is set if so."""
+    """OpenAI, Deepgram or Cartesia refuses everything once its credits run out: say which
+    in the log and end the conversation at once (with the "couldn't connect" beeps),
+    instead of sitting there silent. The event is set if so."""
     out = asyncio.Event()
 
     @worker.event_handler("on_pipeline_error")
     async def on_error(_worker, frame):
-        if out.is_set() or not any(words in str(frame.error).lower() for words in NO_CREDITS):
+        if out.is_set() or not NO_CREDITS.search(str(frame.error)):
             return
         out.set()
-        logger.error(
-            "OpenAI credits used up: add credits at "
-            "https://platform.openai.com/settings/organization/billing"
-        )
+        service = whose_error(frame)
+        logger.error(f"{service} credits used up: add credits in your {service} account")
         # not awaited here: this handler runs inside the pipeline that's being cancelled
-        out.cancelling = asyncio.create_task(worker.cancel(reason="no OpenAI credits"))
+        out.cancelling = asyncio.create_task(worker.cancel(reason=f"no {service} credits"))
 
     return out
+
+
+def whose_error(frame) -> str:
+    """The service an error came from, by its processor's name (OpenAI if none)."""
+    name = type(frame.processor).__name__ if getattr(frame, "processor", None) else ""
+    return next((service for service in SERVICES if service in name), "OpenAI")
 
 
 def quiet_timer(
@@ -359,17 +388,34 @@ def create_stt(config: Config) -> DeepgramFluxSTTService:
     )
 
 
-def create_turns(context: LLMContext) -> LLMContextAggregatorPair:
+def create_turns(
+    context: LLMContext, echo: EchoGuard | None = None
+) -> LLMContextAggregatorPair:
     """Your side of the conversation and Alfred's. Your turn starts on your first word, or
-    on your INTERRUPT_WORDS-th while Alfred is speaking, and ends when Flux says so (see
-    create_stt)."""
+    on your INTERRUPT_WORDS-th while Alfred is speaking (unless they're mostly his own,
+    heard back: echo.py), and ends when Flux says so (see create_stt)."""
     turns = UserTurnStrategies(
-        start=[MinWordsUserTurnStartStrategy(min_words=INTERRUPT_WORDS)],
+        start=[NotHisEcho(echo, min_words=INTERRUPT_WORDS)],
         stop=[EagerUserTurnStopStrategy()],
     )
     return LLMContextAggregatorPair(
         context, user_params=LLMUserAggregatorParams(user_turn_strategies=turns)
     )
+
+
+class NotHisEcho(MinWordsUserTurnStartStrategy):
+    """Pipecat's minimum-words start, skipping words heard while Alfred speaks that are
+    mostly his own (echo.py). Without a guard (the benchmark), it's the plain one."""
+
+    def __init__(self, echo: EchoGuard | None, **kwargs):
+        super().__init__(**kwargs)
+        self._echo = echo
+
+    async def _handle_transcription(self, frame) -> None:
+        if self._echo and self._bot_speaking and self._echo.is_echo(frame.text):
+            await self.trigger_reset_aggregation()  # not a turn: dropped, not kept
+            return
+        await super()._handle_transcription(frame)
 
 
 def create_llm(config: Config, extra: str = "") -> OpenAIResponsesLLMService:
@@ -421,13 +467,13 @@ def create_worker(pipeline: Pipeline, config: Config) -> PipelineWorker:
 
 def log_conversation(llm, user_turns, alfred_turns, on_line, on_tool=None) -> None:
     """Show what was said, and each tool Alfred calls. on_line(who, text) is called with
-    each thing said ("You" or "Alfred"); on_tool() with each tool call."""
+    each thing said ("You" or "Alfred"); on_tool(calls) with each set of tool calls."""
 
     @llm.event_handler("on_function_calls_started")
     async def on_function_calls_started(_llm, calls):
         logger.info(f"Alfred is using: {', '.join(call.function_name for call in calls)}")
         if on_tool:
-            on_tool()
+            on_tool(calls)
 
     @user_turns.event_handler("on_user_turn_message_added")
     async def on_user_turn(_aggregator, message):
