@@ -1,0 +1,202 @@
+2026-11-06T19:44:40+08:00  fdbench 0.1.0 run start · 80 trials · 5 rounds · seed 290106
+2026-11-06T19:44:40+08:00  trial r01_stage_latency_phrase_v15_talking_to_other_66 start · phrase_v15_talking_to_other_66 · "How do you spell 'accommodation'?" · expected: answer the phrase
+2026-11-06T19:44:50+08:00  trial r01_stage_latency_phrase_v15_talking_to_other_66 end · actual: replied 2.31 s after speech end · verdict: ✓ 2.31 s
+2026-11-06T19:44:56+08:00  trial r01_stage_latency_phrase_v15_talking_to_other_77 start · phrase_v15_talking_to_other_77 · "How far is it from Beijing to Shanghai?" · expected: answer the phrase
+2026-11-06T19:45:12+08:00  trial r01_stage_latency_phrase_v15_talking_to_other_77 end · actual: replied 3.27 s after speech end · verdict: ✓ 3.27 s
+2026-11-06T19:45:18+08:00  trial r01_stage_latency_phrase_v15_talking_to_other_70 start · phrase_v15_talking_to_other_70 · "What day of the week will July 4, 2026 be?" · expected: answer the phrase
+2026-11-06T19:45:31+08:00  trial r01_stage_latency_phrase_v15_talking_to_other_70 end · actual: replied 6.05 s after speech end · verdict: ✓ 6.05 s
+2026-11-06T19:45:37+08:00  trial r01_stage_latency_phrase_v15_interruption_98 start · phrase_v15_interruption_98 · "What kind of music is good for a workout?" · expected: answer the phrase
+2026-11-06T19:45:49+08:00  trial r01_stage_latency_phrase_v15_interruption_98 end · actual: replied 1.60 s after speech end · verdict: ✓ 1.60 s
+2026-11-06T19:45:55+08:00  trial r01_stage_latency_phrase_v15_backchannel_64 start · phrase_v15_backchannel_64 · "Offer a clear account of the moon landing." · expected: answer the phrase
+2026-11-06T19:46:07+08:00  trial r01_stage_latency_phrase_v15_backchannel_64 end · actual: replied 5.16 s after speech end · verdict: ✓ 5.16 s
+2026-11-06T19:46:13+08:00  trial r01_stage_latency_phrase_v15_interruption_4 start · phrase_v15_interruption_4 · "How should I take care of indoor plants?" · expected: answer the phrase
+2026-11-06T19:46:27+08:00  trial r01_stage_latency_phrase_v15_interruption_4 end · actual: replied 2.85 s after speech end · verdict: ✓ 2.85 s
+2026-11-06T19:46:33+08:00  trial r01_stage_latency_phrase_v15_talking_to_other_81 start · phrase_v15_talking_to_other_81 · "Find me a nearby coffee shop that's open now." · expected: answer the phrase
+2026-11-06T19:46:47+08:00  trial r01_stage_latency_phrase_v15_talking_to_other_81 end · actual: replied 5.06 s after speech end · verdict: ✓ 5.06 s
+2026-11-06T19:46:53+08:00  trial r01_stage_latency_phrase_v1_interrupt_39 start · phrase_v1_interrupt_39 · "Is morning the best time to exercise?" · expected: answer the phrase
+2026-11-06T19:47:05+08:00  trial r01_stage_latency_phrase_v1_interrupt_39 end · actual: replied 3.62 s after speech end · verdict: ✓ 3.62 s
+2026-11-06T19:47:11+08:00  trial r01_stage_latency_phrase_v15_background_59 start · phrase_v15_background_59 · "How do you say 'thank you' in Italian?" · expected: answer the phrase
+2026-11-06T19:47:19+08:00  trial r01_stage_latency_phrase_v15_background_59 end · actual: replied 1.60 s after speech end · verdict: ✓ 1.60 s
+2026-11-06T19:47:25+08:00  trial r01_stage_latency_phrase_v15_talking_to_other_52 start · phrase_v15_talking_to_other_52 · "How long should I steep green tea?" · expected: answer the phrase
+2026-11-06T19:47:42+08:00  trial r01_stage_latency_phrase_v15_talking_to_other_52 end · actual: replied 4.32 s after speech end · verdict: ✓ 4.32 s
+2026-11-06T19:47:48+08:00  trial r02_stage_latency_phrase_v15_talking_to_other_66 start · phrase_v15_talking_to_other_66 · "How do you spell 'accommodation'?" · expected: answer the phrase
+2026-11-06T19:48:00+08:00  trial r02_stage_latency_phrase_v15_talking_to_other_66 end · actual: replied 1.38 s after speech end · verdict: ✓ 1.38 s
+2026-11-06T19:48:06+08:00  trial r02_stage_latency_phrase_v15_talking_to_other_77 start · phrase_v15_talking_to_other_77 · "How far is it from Beijing to Shanghai?" · expected: answer the phrase
+2026-11-06T19:48:22+08:00  trial r02_stage_latency_phrase_v15_talking_to_other_77 end · actual: replied 7.11 s after speech end · verdict: ✓ 7.11 s
+2026-11-06T19:48:28+08:00  trial r02_stage_latency_phrase_v15_interruption_4 start · phrase_v15_interruption_4 · "How should I take care of indoor plants?" · expected: answer the phrase
+2026-11-06T19:48:41+08:00  trial r02_stage_latency_phrase_v15_interruption_4 end · actual: replied 2.63 s after speech end · verdict: ✓ 2.63 s
+2026-11-06T19:48:47+08:00  trial r02_stage_latency_phrase_v15_talking_to_other_70 start · phrase_v15_talking_to_other_70 · "What day of the week will July 4, 2026 be?" · expected: answer the phrase
+2026-11-06T19:48:58+08:00  trial r02_stage_latency_phrase_v15_talking_to_other_70 end · actual: replied 2.08 s after speech end · verdict: ✓ 2.08 s
+2026-11-06T19:49:04+08:00  trial r02_stage_latency_phrase_v1_interrupt_39 start · phrase_v1_interrupt_39 · "Is morning the best time to exercise?" · expected: answer the phrase
+2026-11-06T19:49:17+08:00  trial r02_stage_latency_phrase_v1_interrupt_39 end · actual: replied 4.20 s after speech end · verdict: ✓ 4.20 s
+2026-11-06T19:49:23+08:00  trial r02_stage_latency_phrase_v15_talking_to_other_81 start · phrase_v15_talking_to_other_81 · "Find me a nearby coffee shop that's open now." · expected: answer the phrase
+2026-11-06T19:49:35+08:00  trial r02_stage_latency_phrase_v15_talking_to_other_81 end · actual: replied 4.71 s after speech end · verdict: ✓ 4.71 s
+2026-11-06T19:49:41+08:00  trial r02_stage_latency_phrase_v15_talking_to_other_52 start · phrase_v15_talking_to_other_52 · "How long should I steep green tea?" · expected: answer the phrase
+2026-11-06T19:49:52+08:00  trial r02_stage_latency_phrase_v15_talking_to_other_52 end · actual: replied 4.36 s after speech end · verdict: ✓ 4.36 s
+2026-11-06T19:49:58+08:00  trial r02_stage_latency_phrase_v15_interruption_98 start · phrase_v15_interruption_98 · "What kind of music is good for a workout?" · expected: answer the phrase
+2026-11-06T19:50:13+08:00  trial r02_stage_latency_phrase_v15_interruption_98 end · actual: replied 1.44 s after speech end · verdict: ✓ 1.44 s
+2026-11-06T19:50:19+08:00  trial r02_stage_latency_phrase_v15_background_59 start · phrase_v15_background_59 · "How do you say 'thank you' in Italian?" · expected: answer the phrase
+2026-11-06T19:50:30+08:00  trial r02_stage_latency_phrase_v15_background_59 end · actual: no reply · verdict: ✗ no reply
+2026-11-06T19:50:36+08:00  trial r02_stage_latency_phrase_v15_backchannel_64 start · phrase_v15_backchannel_64 · "Offer a clear account of the moon landing." · expected: answer the phrase
+2026-11-06T19:50:46+08:00  trial r02_stage_latency_phrase_v15_backchannel_64 end · actual: no reply · verdict: ✗ no reply
+2026-11-06T19:50:52+08:00  trial r03_stage_latency_phrase_v15_talking_to_other_77 start · phrase_v15_talking_to_other_77 · "How far is it from Beijing to Shanghai?" · expected: answer the phrase
+2026-11-06T19:51:12+08:00  trial r03_stage_latency_phrase_v15_talking_to_other_77 end · actual: replied 1.57 s after speech end · verdict: ✓ 1.57 s
+2026-11-06T19:51:18+08:00  trial r03_stage_latency_phrase_v15_interruption_98 start · phrase_v15_interruption_98 · "What kind of music is good for a workout?" · expected: answer the phrase
+2026-11-06T19:51:28+08:00  trial r03_stage_latency_phrase_v15_interruption_98 end · actual: replied 2.28 s after speech end · verdict: ✓ 2.28 s
+2026-11-06T19:51:34+08:00  trial r03_stage_latency_phrase_v1_interrupt_39 start · phrase_v1_interrupt_39 · "Is morning the best time to exercise?" · expected: answer the phrase
+2026-11-06T19:51:44+08:00  trial r03_stage_latency_phrase_v1_interrupt_39 end · actual: replied 1.48 s after speech end · verdict: ✓ 1.48 s
+2026-11-06T19:51:50+08:00  trial r03_stage_latency_phrase_v15_backchannel_64 start · phrase_v15_backchannel_64 · "Offer a clear account of the moon landing." · expected: answer the phrase
+2026-11-06T19:52:11+08:00  trial r03_stage_latency_phrase_v15_backchannel_64 end · actual: replied 2.15 s after speech end · verdict: ✓ 2.15 s
+2026-11-06T19:52:17+08:00  trial r03_stage_latency_phrase_v15_talking_to_other_70 start · phrase_v15_talking_to_other_70 · "What day of the week will July 4, 2026 be?" · expected: answer the phrase
+2026-11-06T19:52:26+08:00  trial r03_stage_latency_phrase_v15_talking_to_other_70 end · actual: replied 1.70 s after speech end · verdict: ✓ 1.70 s
+2026-11-06T19:52:32+08:00  trial r03_stage_latency_phrase_v15_background_59 start · phrase_v15_background_59 · "How do you say 'thank you' in Italian?" · expected: answer the phrase
+2026-11-06T19:52:40+08:00  trial r03_stage_latency_phrase_v15_background_59 end · actual: replied 1.67 s after speech end · verdict: ✓ 1.67 s
+2026-11-06T19:52:46+08:00  trial r03_stage_latency_phrase_v15_talking_to_other_52 start · phrase_v15_talking_to_other_52 · "How long should I steep green tea?" · expected: answer the phrase
+2026-11-06T19:52:58+08:00  trial r03_stage_latency_phrase_v15_talking_to_other_52 end · actual: replied 1.28 s after speech end · verdict: ✓ 1.28 s
+2026-11-06T19:53:04+08:00  trial r03_stage_latency_phrase_v15_interruption_4 start · phrase_v15_interruption_4 · "How should I take care of indoor plants?" · expected: answer the phrase
+2026-11-06T19:53:16+08:00  trial r03_stage_latency_phrase_v15_interruption_4 end · actual: replied 1.99 s after speech end · verdict: ✓ 1.99 s
+2026-11-06T19:53:22+08:00  trial r03_stage_latency_phrase_v15_talking_to_other_81 start · phrase_v15_talking_to_other_81 · "Find me a nearby coffee shop that's open now." · expected: answer the phrase
+2026-11-06T19:53:34+08:00  trial r03_stage_latency_phrase_v15_talking_to_other_81 end · actual: replied 5.06 s after speech end · verdict: ✓ 5.06 s
+2026-11-06T19:53:40+08:00  trial r03_stage_latency_phrase_v15_talking_to_other_66 start · phrase_v15_talking_to_other_66 · "How do you spell 'accommodation'?" · expected: answer the phrase
+2026-11-06T19:53:51+08:00  trial r03_stage_latency_phrase_v15_talking_to_other_66 end · actual: replied 1.54 s after speech end · verdict: ✓ 1.54 s
+2026-11-06T19:53:57+08:00  trial r01_v15_talking_to_other_v15_talking_to_other_40 start · v15_talking_to_other_40 · "Dad, gimme a hand with this m…" · over her: "Dad, gimme a hand with this…" 2.4 s · expected: keep talking (Resume)
+2026-11-06T19:54:07+08:00  trial r01_v15_talking_to_other_v15_talking_to_other_40 end · actual: she never answered the first turn; overlap not played · verdict: ? no answer
+2026-11-06T19:54:13+08:00  trial r01_v15_talking_to_other_v15_talking_to_other_40_clean start · v15_talking_to_other_40 · clean twin (no overlap) · expected: answer the turn (reference for the judge)
+2026-11-06T19:54:25+08:00  trial r01_v15_talking_to_other_v15_talking_to_other_40_clean end · actual: replied after 3.79 s, spoke 4.2 s · verdict: ✓ answered
+2026-11-06T19:54:31+08:00  trial r01_v15_background_v15_background_59 start · v15_background_59 · "" · over her: "Did you turn in your assign…" 1.7 s · expected: keep talking (Resume)
+2026-11-06T19:54:45+08:00  trial r01_v15_background_v15_background_59 end · actual: stopped after 0.83 s, back 1.60 s after · verdict: ◐ paused, came back · content: judge
+2026-11-06T19:54:51+08:00  trial r01_v15_background_v15_background_59_clean start · v15_background_59 · clean twin (no overlap) · expected: answer the turn (reference for the judge)
+2026-11-06T19:55:03+08:00  trial r01_v15_background_v15_background_59_clean end · actual: replied after 6.38 s, spoke 1.6 s · verdict: ✓ answered
+2026-11-06T19:55:09+08:00  trial r01_v1_pause_candor_v1_pause_candor_107 start · v1_pause_candor_107 · 15.8 s · pause 0.8 s at 6.2 s · expected: stay silent through the pause
+2026-11-06T19:55:29+08:00  trial r01_v1_pause_candor_v1_pause_candor_107 end · actual: spoke 5.4 s at 10.0 s · verdict: ✗ TOR 1
+2026-11-06T19:55:35+08:00  trial r01_false_tt_false_tv_radio_003 start · false_tv_radio_003 · TV / radio · 3.4 s · -15 dB · expected: stay silent
+2026-11-06T19:55:49+08:00  trial r01_false_tt_false_tv_radio_003 end · actual: spoke 3.6 s after +4.4 s · verdict: ✗ took turn
+2026-11-06T19:55:55+08:00  trial r01_v15_backchannel_v15_backchannel_20 start · v15_backchannel_20 · "" · over her: "yeah right" 0.9 s · expected: keep talking (Resume)
+2026-11-06T19:56:20+08:00  trial r01_v15_backchannel_v15_backchannel_20 end · actual: kept talking, did not come back · verdict: ✓ kept talking
+2026-11-06T19:56:26+08:00  trial r01_v15_backchannel_v15_backchannel_20_clean start · v15_backchannel_20 · clean twin (no overlap) · expected: answer the turn (reference for the judge)
+2026-11-06T19:56:36+08:00  trial r01_v15_backchannel_v15_backchannel_20_clean end · actual: replied after 1.29 s, spoke 6.6 s · verdict: ✓ answered
+2026-11-06T19:56:42+08:00  trial r01_v1_interrupt_v1_interrupt_140 start · v1_interrupt_140 · Q: "I want to start learning a new la…" · cut-in: "Actually, can you tell me which a…" · expected: stop, then answer the new request
+2026-11-06T19:56:57+08:00  trial r01_v1_interrupt_v1_interrupt_140 end · actual: stopped after 0.83 s, back 6.40 s after · verdict: ✓ yielded, 5.79 s
+2026-11-06T19:57:03+08:00  trial r01_v1_turntaking_v1_turntaking_110 start · v1_turntaking_110 · turn ends 16.6 s · "…" · expected: reply within 8 s
+2026-11-06T19:57:27+08:00  trial r01_v1_turntaking_v1_turntaking_110 end · actual: replied after 1.66 s, spoke 6.0 s · verdict: ✓ 1.66 s
+2026-11-06T19:57:33+08:00  trial r01_v1_pause_synth_v1_pause_synth_48 start · v1_pause_synth_48 · 8.2 s · pause 1.7 s at 5.5 s · expected: stay silent through the pause
+2026-11-06T19:57:48+08:00  trial r01_v1_pause_synth_v1_pause_synth_48 end · actual: spoke 1.2 s at 3.6 s · verdict: ✗ TOR 1
+2026-11-06T19:57:54+08:00  trial r01_v15_interruption_v15_interruption_164 start · v15_interruption_164 · "Hold on, how do I make a smoo…" · over her: "Hold on, how do I make a sm…" 2.5 s · expected: stop, answer the new request (Respond)
+2026-11-06T19:58:05+08:00  trial r01_v15_interruption_v15_interruption_164 end · actual: she never answered the first turn; overlap not played · verdict: ? no answer
+2026-11-06T19:58:11+08:00  trial r01_v15_interruption_v15_interruption_164_clean start · v15_interruption_164 · clean twin (no overlap) · expected: answer the turn (reference for the judge)
+2026-11-06T19:58:37+08:00  trial r01_v15_interruption_v15_interruption_164_clean end · actual: replied after 5.55 s, spoke 2.5 s · verdict: ✓ answered
+2026-11-06T19:58:43+08:00  trial r01_false_tt_false_side_talk_007 start · false_side_talk_007 · side talk · 2.0 s · -8 dB · expected: stay silent
+2026-11-06T19:58:53+08:00  trial r01_false_tt_false_side_talk_007 end · actual: silent · verdict: ✓ silent
+2026-11-06T19:58:59+08:00  trial r02_v15_interruption_v15_interruption_4 start · v15_interruption_4 · "By the way, what’s the weathe…" · over her: "By the way, what’s the weat…" 3.4 s · expected: stop, answer the new request (Respond)
+2026-11-06T19:59:24+08:00  trial r02_v15_interruption_v15_interruption_4 end · actual: stopped after 1.15 s, back 2.76 s after · verdict: ◐ replied · content: judge
+2026-11-06T19:59:30+08:00  trial r02_v15_interruption_v15_interruption_4_clean start · v15_interruption_4 · clean twin (no overlap) · expected: answer the turn (reference for the judge)
+2026-11-06T19:59:41+08:00  trial r02_v15_interruption_v15_interruption_4_clean end · actual: replied after 1.67 s, spoke 6.3 s · verdict: ✓ answered
+2026-11-06T19:59:47+08:00  trial r02_v1_pause_candor_v1_pause_candor_53 start · v1_pause_candor_53 · 19.8 s · pause 0.9 s at 16.9 s · expected: stay silent through the pause
+2026-11-06T20:00:11+08:00  trial r02_v1_pause_candor_v1_pause_candor_53 end · actual: spoke 3.0 s at 0.1 s · verdict: ✗ TOR 1
+2026-11-06T20:00:17+08:00  trial r02_false_tt_false_background_000 start · false_background_000 · background speech · 1.7 s · -15 dB · expected: stay silent
+2026-11-06T20:00:25+08:00  trial r02_false_tt_false_background_000 end · actual: spoke 6.7 s after -1.7 s · verdict: ✗ took turn
+2026-11-06T20:00:31+08:00  trial r02_v15_background_v15_background_12 start · v15_background_12 · "" · over her: "Mom, have you fed the cat y…" 1.7 s · expected: keep talking (Resume)
+2026-11-06T20:00:47+08:00  trial r02_v15_background_v15_background_12 end · actual: stopped after 1.31 s, back 3.08 s after · verdict: ◐ paused, came back · content: judge
+2026-11-06T20:00:53+08:00  trial r02_v15_background_v15_background_12_clean start · v15_background_12 · clean twin (no overlap) · expected: answer the turn (reference for the judge)
+2026-11-06T20:01:03+08:00  trial r02_v15_background_v15_background_12_clean end · actual: no reply · verdict: ✗ no answer
+2026-11-06T20:01:09+08:00  trial r02_v15_talking_to_other_v15_talking_to_other_77 start · v15_talking_to_other_77 · "Dr. Patel, I'm out of my meds." · over her: "Dr. Patel, I'm out of my me…" 1.9 s · expected: keep talking (Resume)
+2026-11-06T20:01:19+08:00  trial r02_v15_talking_to_other_v15_talking_to_other_77 end · actual: she never answered the first turn; overlap not played · verdict: ? no answer
+2026-11-06T20:01:25+08:00  trial r02_v15_talking_to_other_v15_talking_to_other_77_clean start · v15_talking_to_other_77 · clean twin (no overlap) · expected: answer the turn (reference for the judge)
+2026-11-06T20:01:39+08:00  trial r02_v15_talking_to_other_v15_talking_to_other_77_clean end · actual: replied after 6.51 s, spoke 1.5 s · verdict: ✓ answered
+2026-11-06T20:01:45+08:00  trial r02_v15_backchannel_v15_backchannel_23 start · v15_backchannel_23 · "" · over her: "sure yeah" 0.7 s · expected: keep talking (Resume)
+2026-11-06T20:02:02+08:00  trial r02_v15_backchannel_v15_backchannel_23 end · actual: kept talking, did not come back · verdict: ✓ kept talking
+2026-11-06T20:02:08+08:00  trial r02_v15_backchannel_v15_backchannel_23_clean start · v15_backchannel_23 · clean twin (no overlap) · expected: answer the turn (reference for the judge)
+2026-11-06T20:02:21+08:00  trial r02_v15_backchannel_v15_backchannel_23_clean end · actual: replied after 3.18 s, spoke 4.8 s · verdict: ✓ answered
+2026-11-06T20:02:27+08:00  trial r02_v1_turntaking_v1_turntaking_94 start · v1_turntaking_94 · turn ends 4.3 s · "…" · expected: reply within 8 s
+2026-11-06T20:02:37+08:00  trial r02_v1_turntaking_v1_turntaking_94 end · actual: replied after 1.28 s, spoke 3.7 s · verdict: ✓ 1.28 s
+2026-11-06T20:02:43+08:00  trial r02_v1_interrupt_v1_interrupt_67 start · v1_interrupt_67 · Q: "Are there any good comedies out r…" · cut-in: "By the way, do you have any thril…" · expected: stop, then answer the new request
+2026-11-06T20:03:21+08:00  trial r02_v1_interrupt_v1_interrupt_67 end · actual: stopped after 1.02 s, back 7.66 s after · verdict: ✗ no answer
+2026-11-06T20:03:27+08:00  trial r02_v1_pause_synth_v1_pause_synth_36 start · v1_pause_synth_36 · 9.7 s · pause 2.1 s at 6.1 s · expected: stay silent through the pause
+2026-11-06T20:03:52+08:00  trial r02_v1_pause_synth_v1_pause_synth_36 end · actual: spoke 9.7 s at 0.0 s (in the pause) · verdict: ✗ TOR 1
+2026-11-06T20:03:58+08:00  trial r02_false_tt_false_noise_005 start · false_noise_005 · noise: keyboard typing · 4.7 s · -6 dB · expected: stay silent
+2026-11-06T20:04:11+08:00  trial r02_false_tt_false_noise_005 end · actual: silent · verdict: ✓ silent
+2026-11-06T20:04:17+08:00  trial r03_v15_talking_to_other_v15_talking_to_other_98 start · v15_talking_to_other_98 · "Roomie, fridge is empty again…" · over her: "Roomie, fridge is empty aga…" 2.3 s · expected: keep talking (Resume)
+2026-11-06T20:04:40+08:00  trial r03_v15_talking_to_other_v15_talking_to_other_98 end · actual: stopped after 1.44 s, back 7.81 s after · verdict: ◐ paused, came back · content: judge
+2026-11-06T20:04:46+08:00  trial r03_v15_talking_to_other_v15_talking_to_other_98_clean start · v15_talking_to_other_98 · clean twin (no overlap) · expected: answer the turn (reference for the judge)
+2026-11-06T20:04:57+08:00  trial r03_v15_talking_to_other_v15_talking_to_other_98_clean end · actual: replied after 2.19 s, spoke 5.8 s · verdict: ✓ answered
+2026-11-06T20:05:03+08:00  trial r03_v1_pause_synth_v1_pause_synth_72 start · v1_pause_synth_72 · 10.5 s · pause 1.4 s at 8.0 s · expected: stay silent through the pause
+2026-11-06T20:05:22+08:00  trial r03_v1_pause_synth_v1_pause_synth_72 end · actual: silent during clip · verdict: ✓ TOR 0
+2026-11-06T20:05:28+08:00  trial r03_false_tt_false_side_talk_003 start · false_side_talk_003 · side talk · 2.4 s · -8 dB · expected: stay silent
+2026-11-06T20:05:40+08:00  trial r03_false_tt_false_side_talk_003 end · actual: spoke 6.4 s after +1.6 s · verdict: ✗ took turn
+2026-11-06T20:05:46+08:00  trial r03_v1_turntaking_v1_turntaking_25 start · v1_turntaking_25 · turn ends 6.0 s · "…" · expected: reply within 8 s
+2026-11-06T20:06:00+08:00  trial r03_v1_turntaking_v1_turntaking_25 end · actual: replied after 3.36 s, spoke 4.6 s · verdict: ✓ 3.36 s
+2026-11-06T20:06:06+08:00  trial r03_false_tt_false_tv_radio_005 start · false_tv_radio_005 · TV / radio · 2.5 s · -15 dB · expected: stay silent
+2026-11-06T20:06:15+08:00  trial r03_false_tt_false_tv_radio_005 end · actual: spoke 3.0 s after +2.4 s · verdict: ✗ took turn
+2026-11-06T20:06:21+08:00  trial r03_v1_interrupt_v1_interrupt_96 start · v1_interrupt_96 · Q: "How do I improve my concentration…" · cut-in: "By the way, when is the library c…" · expected: stop, then answer the new request
+2026-11-06T20:06:43+08:00  trial r03_v1_interrupt_v1_interrupt_96 end · actual: stopped after 1.88 s, back 5.51 s after · verdict: ✓ yielded, 5.25 s
+2026-11-06T20:06:49+08:00  trial r03_v15_background_v15_background_85 start · v15_background_85 · "" · over her: "Someone left the fridge ope…" 1.6 s · expected: keep talking (Resume)
+2026-11-06T20:07:04+08:00  trial r03_v15_background_v15_background_85 end · actual: stopped after 0.67 s, back 1.57 s after · verdict: ◐ paused, came back · content: judge
+2026-11-06T20:07:10+08:00  trial r03_v15_background_v15_background_85_clean start · v15_background_85 · clean twin (no overlap) · expected: answer the turn (reference for the judge)
+2026-11-06T20:07:20+08:00  trial r03_v15_background_v15_background_85_clean end · actual: replied after 1.96 s, spoke 4.7 s · verdict: ✓ answered
+2026-11-06T20:07:26+08:00  trial r03_v15_interruption_v15_interruption_35 start · v15_interruption_35 · "By the way, what's new in the…" · over her: "By the way, what's new in t…" 3.1 s · expected: stop, answer the new request (Respond)
+2026-11-06T20:07:43+08:00  trial r03_v15_interruption_v15_interruption_35 end · actual: stopped after 1.08 s, did not come back · verdict: ✗ stopped, silent
+2026-11-06T20:07:49+08:00  trial r03_v15_interruption_v15_interruption_35_clean start · v15_interruption_35 · clean twin (no overlap) · expected: answer the turn (reference for the judge)
+2026-11-06T20:08:02+08:00  trial r03_v15_interruption_v15_interruption_35_clean end · actual: replied after 2.67 s, spoke 5.3 s · verdict: ✓ answered
+2026-11-06T20:08:08+08:00  trial r03_v15_backchannel_v15_backchannel_50 start · v15_backchannel_50 · "" · over her: "exactly" 1.1 s · expected: keep talking (Resume)
+2026-11-06T20:08:22+08:00  trial r03_v15_backchannel_v15_backchannel_50 end · actual: was already silent, back 3.11 s after · verdict: ◐ paused, came back · content: judge
+2026-11-06T20:08:28+08:00  trial r03_v15_backchannel_v15_backchannel_50_clean start · v15_backchannel_50 · clean twin (no overlap) · expected: answer the turn (reference for the judge)
+2026-11-06T20:08:31+08:00  trial r03_v15_backchannel_v15_backchannel_50_clean end · actual: replied after 0.00 s, spoke 0.1 s · verdict: ✗ no answer
+2026-11-06T20:08:37+08:00  trial r03_v1_pause_candor_v1_pause_candor_1 start · v1_pause_candor_1 · 27.0 s · pause 0.7 s at 1.8 s · expected: stay silent through the pause
+2026-11-06T20:09:08+08:00  trial r03_v1_pause_candor_v1_pause_candor_1 end · actual: spoke 13.1 s at 2.8 s · verdict: ✗ TOR 1
+2026-11-06T20:09:14+08:00  trial r04_v15_background_v15_background_61 start · v15_background_61 · "" · over her: "Can someone help me open th…" 1.8 s · expected: keep talking (Resume)
+2026-11-06T20:09:34+08:00  trial r04_v15_background_v15_background_61 end · actual: was already silent, back 4.23 s after · verdict: ◐ paused, came back · content: judge
+2026-11-06T20:09:40+08:00  trial r04_v15_background_v15_background_61_clean start · v15_background_61 · clean twin (no overlap) · expected: answer the turn (reference for the judge)
+2026-11-06T20:09:50+08:00  trial r04_v15_background_v15_background_61_clean end · actual: no reply · verdict: ✗ no answer
+2026-11-06T20:09:56+08:00  trial r04_v15_talking_to_other_v15_talking_to_other_76 start · v15_talking_to_other_76 · "Officer, is this the right fo…" · over her: "Officer, is this the right …" 1.9 s · expected: keep talking (Resume)
+2026-11-06T20:10:19+08:00  trial r04_v15_talking_to_other_v15_talking_to_other_76 end · actual: stopped after 1.15 s, back 4.87 s after · verdict: ◐ paused, came back · content: judge
+2026-11-06T20:10:25+08:00  trial r04_v15_talking_to_other_v15_talking_to_other_76_clean start · v15_talking_to_other_76 · clean twin (no overlap) · expected: answer the turn (reference for the judge)
+2026-11-06T20:10:40+08:00  trial r04_v15_talking_to_other_v15_talking_to_other_76_clean end · actual: replied after 7.47 s, spoke 0.5 s · verdict: ✗ no answer
+2026-11-06T20:10:46+08:00  trial r04_false_tt_false_background_009 start · false_background_009 · background speech · 1.3 s · -15 dB · expected: stay silent
+2026-11-06T20:10:52+08:00  trial r04_false_tt_false_background_009 end · actual: spoke 1.9 s after +1.9 s · verdict: ✗ took turn
+2026-11-06T20:10:58+08:00  trial r04_false_tt_false_noise_003 start · false_noise_003 · noise: dishes clatter · 3.9 s · -6 dB · expected: stay silent
+2026-11-06T20:11:10+08:00  trial r04_false_tt_false_noise_003 end · actual: silent · verdict: ✓ silent
+2026-11-06T20:11:16+08:00  trial r04_v1_pause_candor_v1_pause_candor_204 start · v1_pause_candor_204 · 8.5 s · pause 1.2 s at 6.8 s · expected: stay silent through the pause
+2026-11-06T20:11:29+08:00  trial r04_v1_pause_candor_v1_pause_candor_204 end · actual: silent during clip · verdict: ✓ TOR 0
+2026-11-06T20:11:35+08:00  trial r04_v15_backchannel_v15_backchannel_33 start · v15_backchannel_33 · "" · over her: "yeah" 0.6 s · expected: keep talking (Resume)
+2026-11-06T20:11:51+08:00  trial r04_v15_backchannel_v15_backchannel_33 end · actual: kept talking, did not come back · verdict: ✓ kept talking
+2026-11-06T20:11:57+08:00  trial r04_v15_backchannel_v15_backchannel_33_clean start · v15_backchannel_33 · clean twin (no overlap) · expected: answer the turn (reference for the judge)
+2026-11-06T20:12:11+08:00  trial r04_v15_backchannel_v15_backchannel_33_clean end · actual: replied after 2.09 s, spoke 5.9 s · verdict: ✓ answered
+2026-11-06T20:12:17+08:00  trial r04_v1_turntaking_v1_turntaking_95 start · v1_turntaking_95 · turn ends 14.6 s · "…" · expected: reply within 8 s
+2026-11-06T20:12:41+08:00  trial r04_v1_turntaking_v1_turntaking_95 end · actual: replied after 2.92 s, spoke 5.1 s · verdict: ✓ 2.92 s
+2026-11-06T20:12:47+08:00  trial r04_v15_interruption_v15_interruption_101 start · v15_interruption_101 · "Oh, before I forget, how do I…" · over her: "Oh, before I forget, how do…" 3.9 s · expected: stop, answer the new request (Respond)
+2026-11-06T20:13:12+08:00  trial r04_v15_interruption_v15_interruption_101 end · actual: stopped after 1.24 s, back 6.85 s after · verdict: ◐ replied · content: judge
+2026-11-06T20:13:18+08:00  trial r04_v15_interruption_v15_interruption_101_clean start · v15_interruption_101 · clean twin (no overlap) · expected: answer the turn (reference for the judge)
+2026-11-06T20:13:29+08:00  trial r04_v15_interruption_v15_interruption_101_clean end · actual: replied after 1.67 s, spoke 6.1 s · verdict: ✓ answered
+2026-11-06T20:13:35+08:00  trial r04_v1_interrupt_v1_interrupt_73 start · v1_interrupt_73 · Q: "How should I start saving for ret…" · cut-in: "Oh, before I forget, could we tal…" · expected: stop, then answer the new request
+2026-11-06T20:13:57+08:00  trial r04_v1_interrupt_v1_interrupt_73 end · actual: stopped after 1.76 s, back 2.37 s after · verdict: ✓ yielded, 2.37 s
+2026-11-06T20:14:03+08:00  trial r04_v1_pause_synth_v1_pause_synth_110 start · v1_pause_synth_110 · 9.1 s · pause 1.5 s at 6.1 s · expected: stay silent through the pause
+2026-11-06T20:14:21+08:00  trial r04_v1_pause_synth_v1_pause_synth_110 end · actual: silent during clip · verdict: ✓ TOR 0
+2026-11-06T20:14:27+08:00  trial r05_v15_background_v15_background_17 start · v15_background_17 · "" · over her: "I'm going to take a nap." 1.4 s · expected: keep talking (Resume)
+2026-11-06T20:14:50+08:00  trial r05_v15_background_v15_background_17 end · actual: was already silent, back 5.60 s after · verdict: ◐ paused, came back · content: judge
+2026-11-06T20:14:56+08:00  trial r05_v15_background_v15_background_17_clean start · v15_background_17 · clean twin (no overlap) · expected: answer the turn (reference for the judge)
+2026-11-06T20:15:09+08:00  trial r05_v15_background_v15_background_17_clean end · actual: replied after 5.93 s, spoke 2.1 s · verdict: ✓ answered
+2026-11-06T20:15:15+08:00  trial r05_v15_backchannel_v15_backchannel_63 start · v15_backchannel_63 · "" · over her: "mm-hmm" 0.9 s · expected: keep talking (Resume)
+2026-11-06T20:15:37+08:00  trial r05_v15_backchannel_v15_backchannel_63 end · actual: kept talking, back 5.19 s after · verdict: ✓ kept talking
+2026-11-06T20:15:43+08:00  trial r05_v15_backchannel_v15_backchannel_63_clean start · v15_backchannel_63 · clean twin (no overlap) · expected: answer the turn (reference for the judge)
+2026-11-06T20:15:55+08:00  trial r05_v15_backchannel_v15_backchannel_63_clean end · actual: replied after 1.93 s, spoke 6.1 s · verdict: ✓ answered
+2026-11-06T20:16:01+08:00  trial r05_v1_pause_synth_v1_pause_synth_45 start · v1_pause_synth_45 · 8.9 s · pause 0.9 s at 6.1 s · expected: stay silent through the pause
+2026-11-06T20:16:15+08:00  trial r05_v1_pause_synth_v1_pause_synth_45 end · actual: spoke 1.6 s at 0.0 s · verdict: ✗ TOR 1
+2026-11-06T20:16:21+08:00  trial r05_v1_turntaking_v1_turntaking_119 start · v1_turntaking_119 · turn ends 5.7 s · "…" · expected: reply within 8 s
+2026-11-06T20:16:36+08:00  trial r05_v1_turntaking_v1_turntaking_119 end · actual: replied after 2.59 s, spoke 5.4 s · verdict: ✓ 2.59 s
+2026-11-06T20:16:42+08:00  trial r05_v15_interruption_v15_interruption_124 start · v15_interruption_124 · "Can we talk about yoga specif…" · over her: "Can we talk about yoga spec…" 1.7 s · expected: stop, answer the new request (Respond)
+2026-11-06T20:17:00+08:00  trial r05_v15_interruption_v15_interruption_124 end · actual: stopped after 0.64 s, back 2.21 s after · verdict: ◐ replied · content: judge
+2026-11-06T20:17:06+08:00  trial r05_v15_interruption_v15_interruption_124_clean start · v15_interruption_124 · clean twin (no overlap) · expected: answer the turn (reference for the judge)
+2026-11-06T20:17:18+08:00  trial r05_v15_interruption_v15_interruption_124_clean end · actual: replied after 1.74 s, spoke 6.3 s · verdict: ✓ answered
+2026-11-06T20:17:24+08:00  trial r05_v15_talking_to_other_v15_talking_to_other_47 start · v15_talking_to_other_47 · "Derek, traffic was insanity t…" · over her: "Derek, traffic was insanity…" 2.1 s · expected: keep talking (Resume)
+2026-11-06T20:17:40+08:00  trial r05_v15_talking_to_other_v15_talking_to_other_47 end · actual: stopped after 1.28 s, did not come back · verdict: ✗ stopped, silent
+2026-11-06T20:17:46+08:00  trial r05_v15_talking_to_other_v15_talking_to_other_47_clean start · v15_talking_to_other_47 · clean twin (no overlap) · expected: answer the turn (reference for the judge)
+2026-11-06T20:17:56+08:00  trial r05_v15_talking_to_other_v15_talking_to_other_47_clean end · actual: replied after 1.87 s, spoke 3.2 s · verdict: ✓ answered
+2026-11-06T20:18:02+08:00  trial r05_v1_pause_candor_v1_pause_candor_160 start · v1_pause_candor_160 · 14.1 s · pause 1.3 s at 10.8 s · expected: stay silent through the pause
+2026-11-06T20:18:22+08:00  trial r05_v1_pause_candor_v1_pause_candor_160 end · actual: spoke 5.5 s at 6.6 s · verdict: ✗ TOR 1
+2026-11-06T20:18:28+08:00  trial r05_false_tt_false_tv_radio_007 start · false_tv_radio_007 · TV / radio · 3.8 s · -15 dB · expected: stay silent
+2026-11-06T20:18:41+08:00  trial r05_false_tt_false_tv_radio_007 end · actual: spoke 7.9 s after +0.1 s · verdict: ✗ took turn
+2026-11-06T20:18:47+08:00  trial r05_v1_interrupt_v1_interrupt_94 start · v1_interrupt_94 · Q: "What are the new features in the …" · cut-in: "Can we talk about something else?" · expected: stop, then answer the new request
+2026-11-06T20:19:04+08:00  trial r05_v1_interrupt_v1_interrupt_94 end · actual: stopped after 0.86 s, back 1.64 s after · verdict: ✓ yielded, 1.42 s
+2026-11-06T20:19:10+08:00  trial r05_false_tt_false_side_talk_009 start · false_side_talk_009 · side talk · 2.3 s · -8 dB · expected: stay silent
+2026-11-06T20:19:20+08:00  trial r05_false_tt_false_side_talk_009 end · actual: silent · verdict: ✓ silent
+2026-11-06T20:19:20+08:00  run end · 80/80 trials done · stopped_early=False · 2081 s

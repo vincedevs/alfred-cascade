@@ -1,0 +1,648 @@
+{
+  "seed": 290106,
+  "rounds": 5,
+  "phrases": 10,
+  "runs": 3,
+  "items": [
+    {
+      "index": 0,
+      "round": 1,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_talking_to_other_66",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 1,
+      "round": 1,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_talking_to_other_77",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 2,
+      "round": 1,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_talking_to_other_70",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 3,
+      "round": 1,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_interruption_98",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 4,
+      "round": 1,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_backchannel_64",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 5,
+      "round": 1,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_interruption_4",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 6,
+      "round": 1,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_talking_to_other_81",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 7,
+      "round": 1,
+      "group": "stage_latency",
+      "clip_id": "phrase_v1_interrupt_39",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 8,
+      "round": 1,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_background_59",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 9,
+      "round": 1,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_talking_to_other_52",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 10,
+      "round": 2,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_talking_to_other_66",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 11,
+      "round": 2,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_talking_to_other_77",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 12,
+      "round": 2,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_interruption_4",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 13,
+      "round": 2,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_talking_to_other_70",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 14,
+      "round": 2,
+      "group": "stage_latency",
+      "clip_id": "phrase_v1_interrupt_39",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 15,
+      "round": 2,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_talking_to_other_81",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 16,
+      "round": 2,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_talking_to_other_52",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 17,
+      "round": 2,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_interruption_98",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 18,
+      "round": 2,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_background_59",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 19,
+      "round": 2,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_backchannel_64",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 20,
+      "round": 3,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_talking_to_other_77",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 21,
+      "round": 3,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_interruption_98",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 22,
+      "round": 3,
+      "group": "stage_latency",
+      "clip_id": "phrase_v1_interrupt_39",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 23,
+      "round": 3,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_backchannel_64",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 24,
+      "round": 3,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_talking_to_other_70",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 25,
+      "round": 3,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_background_59",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 26,
+      "round": 3,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_talking_to_other_52",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 27,
+      "round": 3,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_interruption_4",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 28,
+      "round": 3,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_talking_to_other_81",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 29,
+      "round": 3,
+      "group": "stage_latency",
+      "clip_id": "phrase_v15_talking_to_other_66",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 30,
+      "round": 1,
+      "group": "v15_talking_to_other",
+      "clip_id": "v15_talking_to_other_40",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 31,
+      "round": 1,
+      "group": "v15_background",
+      "clip_id": "v15_background_59",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 32,
+      "round": 1,
+      "group": "v1_pause_candor",
+      "clip_id": "v1_pause_candor_107",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 33,
+      "round": 1,
+      "group": "false_tt",
+      "clip_id": "false_tv_radio_003",
+      "kind": "tv_radio",
+      "status": "done"
+    },
+    {
+      "index": 34,
+      "round": 1,
+      "group": "v15_backchannel",
+      "clip_id": "v15_backchannel_20",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 35,
+      "round": 1,
+      "group": "v1_interrupt",
+      "clip_id": "v1_interrupt_140",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 36,
+      "round": 1,
+      "group": "v1_turntaking",
+      "clip_id": "v1_turntaking_110",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 37,
+      "round": 1,
+      "group": "v1_pause_synth",
+      "clip_id": "v1_pause_synth_48",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 38,
+      "round": 1,
+      "group": "v15_interruption",
+      "clip_id": "v15_interruption_164",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 39,
+      "round": 1,
+      "group": "false_tt",
+      "clip_id": "false_side_talk_007",
+      "kind": "side_talk",
+      "status": "done"
+    },
+    {
+      "index": 40,
+      "round": 2,
+      "group": "v15_interruption",
+      "clip_id": "v15_interruption_4",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 41,
+      "round": 2,
+      "group": "v1_pause_candor",
+      "clip_id": "v1_pause_candor_53",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 42,
+      "round": 2,
+      "group": "false_tt",
+      "clip_id": "false_background_000",
+      "kind": "background",
+      "status": "done"
+    },
+    {
+      "index": 43,
+      "round": 2,
+      "group": "v15_background",
+      "clip_id": "v15_background_12",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 44,
+      "round": 2,
+      "group": "v15_talking_to_other",
+      "clip_id": "v15_talking_to_other_77",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 45,
+      "round": 2,
+      "group": "v15_backchannel",
+      "clip_id": "v15_backchannel_23",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 46,
+      "round": 2,
+      "group": "v1_turntaking",
+      "clip_id": "v1_turntaking_94",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 47,
+      "round": 2,
+      "group": "v1_interrupt",
+      "clip_id": "v1_interrupt_67",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 48,
+      "round": 2,
+      "group": "v1_pause_synth",
+      "clip_id": "v1_pause_synth_36",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 49,
+      "round": 2,
+      "group": "false_tt",
+      "clip_id": "false_noise_005",
+      "kind": "noise",
+      "status": "done"
+    },
+    {
+      "index": 50,
+      "round": 3,
+      "group": "v15_talking_to_other",
+      "clip_id": "v15_talking_to_other_98",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 51,
+      "round": 3,
+      "group": "v1_pause_synth",
+      "clip_id": "v1_pause_synth_72",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 52,
+      "round": 3,
+      "group": "false_tt",
+      "clip_id": "false_side_talk_003",
+      "kind": "side_talk",
+      "status": "done"
+    },
+    {
+      "index": 53,
+      "round": 3,
+      "group": "v1_turntaking",
+      "clip_id": "v1_turntaking_25",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 54,
+      "round": 3,
+      "group": "false_tt",
+      "clip_id": "false_tv_radio_005",
+      "kind": "tv_radio",
+      "status": "done"
+    },
+    {
+      "index": 55,
+      "round": 3,
+      "group": "v1_interrupt",
+      "clip_id": "v1_interrupt_96",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 56,
+      "round": 3,
+      "group": "v15_background",
+      "clip_id": "v15_background_85",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 57,
+      "round": 3,
+      "group": "v15_interruption",
+      "clip_id": "v15_interruption_35",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 58,
+      "round": 3,
+      "group": "v15_backchannel",
+      "clip_id": "v15_backchannel_50",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 59,
+      "round": 3,
+      "group": "v1_pause_candor",
+      "clip_id": "v1_pause_candor_1",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 60,
+      "round": 4,
+      "group": "v15_background",
+      "clip_id": "v15_background_61",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 61,
+      "round": 4,
+      "group": "v15_talking_to_other",
+      "clip_id": "v15_talking_to_other_76",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 62,
+      "round": 4,
+      "group": "false_tt",
+      "clip_id": "false_background_009",
+      "kind": "background",
+      "status": "done"
+    },
+    {
+      "index": 63,
+      "round": 4,
+      "group": "false_tt",
+      "clip_id": "false_noise_003",
+      "kind": "noise",
+      "status": "done"
+    },
+    {
+      "index": 64,
+      "round": 4,
+      "group": "v1_pause_candor",
+      "clip_id": "v1_pause_candor_204",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 65,
+      "round": 4,
+      "group": "v15_backchannel",
+      "clip_id": "v15_backchannel_33",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 66,
+      "round": 4,
+      "group": "v1_turntaking",
+      "clip_id": "v1_turntaking_95",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 67,
+      "round": 4,
+      "group": "v15_interruption",
+      "clip_id": "v15_interruption_101",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 68,
+      "round": 4,
+      "group": "v1_interrupt",
+      "clip_id": "v1_interrupt_73",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 69,
+      "round": 4,
+      "group": "v1_pause_synth",
+      "clip_id": "v1_pause_synth_110",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 70,
+      "round": 5,
+      "group": "v15_background",
+      "clip_id": "v15_background_17",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 71,
+      "round": 5,
+      "group": "v15_backchannel",
+      "clip_id": "v15_backchannel_63",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 72,
+      "round": 5,
+      "group": "v1_pause_synth",
+      "clip_id": "v1_pause_synth_45",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 73,
+      "round": 5,
+      "group": "v1_turntaking",
+      "clip_id": "v1_turntaking_119",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 74,
+      "round": 5,
+      "group": "v15_interruption",
+      "clip_id": "v15_interruption_124",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 75,
+      "round": 5,
+      "group": "v15_talking_to_other",
+      "clip_id": "v15_talking_to_other_47",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 76,
+      "round": 5,
+      "group": "v1_pause_candor",
+      "clip_id": "v1_pause_candor_160",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 77,
+      "round": 5,
+      "group": "false_tt",
+      "clip_id": "false_tv_radio_007",
+      "kind": "tv_radio",
+      "status": "done"
+    },
+    {
+      "index": 78,
+      "round": 5,
+      "group": "v1_interrupt",
+      "clip_id": "v1_interrupt_94",
+      "kind": null,
+      "status": "done"
+    },
+    {
+      "index": 79,
+      "round": 5,
+      "group": "false_tt",
+      "clip_id": "false_side_talk_009",
+      "kind": "side_talk",
+      "status": "done"
+    }
+  ]
+}

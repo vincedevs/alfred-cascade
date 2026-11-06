@@ -1,0 +1,1066 @@
+{
+  "about": "Stage latency per turn (course template, section 5). Times in seconds on the assistant machine's monotonic clock; e2e = audio_out - vad_end; e2e_heard = reply audio start - true end of speech (fdbench's audio clock); endpointing = vad_end - true end of speech.",
+  "phrases": 10,
+  "runs": 3,
+  "turns": [
+    {
+      "trial": "r01_stage_latency_phrase_v15_backchannel_64",
+      "run": 1,
+      "clip": "phrase_v15_backchannel_64",
+      "ref": "Offer a clear account of the moon landing.",
+      "e2e": 4.3549,
+      "e2e_source": "marks",
+      "e2e_heard": 5.156,
+      "endpointing": 0.6991,
+      "asr_final": 0.0,
+      "llm_ttft": 3.9983,
+      "tts_ttfb": 0.3558,
+      "transcript": "Offer a clear account of the moon landing.",
+      "context_tokens": 10032,
+      "context_messages": 9,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 8,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r01_stage_latency_phrase_v15_background_59",
+      "run": 1,
+      "clip": "phrase_v15_background_59",
+      "ref": "How do you say 'thank you' in Italian?",
+      "e2e": 0.6654,
+      "e2e_source": "marks",
+      "e2e_heard": 1.604,
+      "endpointing": 0.8814,
+      "asr_final": 0.0,
+      "llm_ttft": 0.4458,
+      "tts_ttfb": 0.2177,
+      "transcript": "How do you say thank you in Italian?",
+      "context_tokens": 6018,
+      "context_messages": 17,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 8,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r01_stage_latency_phrase_v15_interruption_4",
+      "run": 1,
+      "clip": "phrase_v15_interruption_4",
+      "ref": "How should I take care of indoor plants?",
+      "e2e": 1.6418,
+      "e2e_source": "marks",
+      "e2e_heard": 2.852,
+      "endpointing": 1.0668,
+      "asr_final": 0.0,
+      "llm_ttft": 1.328,
+      "tts_ttfb": 0.3166,
+      "transcript": "How should I take care of indoor plant?",
+      "context_tokens": 5840,
+      "context_messages": 11,
+      "wer": 0.125,
+      "wer_detail": {
+        "ref_words": 8,
+        "edits": 1,
+        "wer": 0.125
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r01_stage_latency_phrase_v15_interruption_98",
+      "run": 1,
+      "clip": "phrase_v15_interruption_98",
+      "ref": "What kind of music is good for a workout?",
+      "e2e": 1.052,
+      "e2e_source": "marks",
+      "e2e_heard": 1.604,
+      "endpointing": 0.4678,
+      "asr_final": 0.0,
+      "llm_ttft": 0.7332,
+      "tts_ttfb": 0.3173,
+      "transcript": "What kind of music is good for a workout?",
+      "context_tokens": 5719,
+      "context_messages": 7,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 9,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r01_stage_latency_phrase_v15_talking_to_other_52",
+      "run": 1,
+      "clip": "phrase_v15_talking_to_other_52",
+      "ref": "How long should I steep green tea?",
+      "e2e": 3.8385,
+      "e2e_source": "marks",
+      "e2e_heard": 4.324,
+      "endpointing": 0.3402,
+      "asr_final": 0.0,
+      "llm_ttft": 3.6658,
+      "tts_ttfb": 0.1711,
+      "transcript": "How long should I steep green tea?",
+      "context_tokens": 10405,
+      "context_messages": 20,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 7,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r01_stage_latency_phrase_v15_talking_to_other_66",
+      "run": 1,
+      "clip": "phrase_v15_talking_to_other_66",
+      "ref": "How do you spell 'accommodation'?",
+      "e2e": 1.4379,
+      "e2e_source": "marks",
+      "e2e_heard": 2.308,
+      "endpointing": 0.8335,
+      "asr_final": 0.0,
+      "llm_ttft": 1.2053,
+      "tts_ttfb": 0.2354,
+      "transcript": "How do you spell accommodation?",
+      "context_tokens": 5599,
+      "context_messages": 1,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 5,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r01_stage_latency_phrase_v15_talking_to_other_70",
+      "run": 1,
+      "clip": "phrase_v15_talking_to_other_70",
+      "ref": "What day of the week will July 4, 2026 be?",
+      "e2e": 5.5655,
+      "e2e_source": "marks",
+      "e2e_heard": 6.052,
+      "endpointing": 0.3483,
+      "asr_final": 0.0,
+      "llm_ttft": 5.404,
+      "tts_ttfb": 0.1609,
+      "transcript": "What day of the week will July fourth twenty twenty six be?",
+      "context_tokens": 9975,
+      "context_messages": 5,
+      "wer": 0.4,
+      "wer_detail": {
+        "ref_words": 10,
+        "edits": 4,
+        "wer": 0.4
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r01_stage_latency_phrase_v15_talking_to_other_77",
+      "run": 1,
+      "clip": "phrase_v15_talking_to_other_77",
+      "ref": "How far is it from Beijing to Shanghai?",
+      "e2e": 3.0304,
+      "e2e_source": "marks",
+      "e2e_heard": 3.268,
+      "endpointing": 0.1241,
+      "asr_final": 0.0,
+      "llm_ttft": 2.6956,
+      "tts_ttfb": 0.3339,
+      "transcript": "How far is it from Beijing to Shanghai",
+      "context_tokens": 9889,
+      "context_messages": 3,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 8,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r01_stage_latency_phrase_v15_talking_to_other_81",
+      "run": 1,
+      "clip": "phrase_v15_talking_to_other_81",
+      "ref": "Find me a nearby coffee shop that's open now.",
+      "e2e": 4.0557,
+      "e2e_source": "marks",
+      "e2e_heard": 5.06,
+      "endpointing": 0.8874,
+      "asr_final": 0.0,
+      "llm_ttft": 3.8384,
+      "tts_ttfb": 0.2144,
+      "transcript": "Find me a nearby coffee shop that's open now.",
+      "context_tokens": 10180,
+      "context_messages": 13,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 9,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r01_stage_latency_phrase_v1_interrupt_39",
+      "run": 1,
+      "clip": "phrase_v1_interrupt_39",
+      "ref": "Is morning the best time to exercise?",
+      "e2e": 3.0884,
+      "e2e_source": "marks",
+      "e2e_heard": 3.62,
+      "endpointing": 0.3389,
+      "asr_final": 0.0,
+      "llm_ttft": 2.9256,
+      "tts_ttfb": 0.1607,
+      "transcript": "Is morning the best time to exercise?",
+      "context_tokens": 10257,
+      "context_messages": 15,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 7,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r02_stage_latency_phrase_v15_backchannel_64",
+      "run": 2,
+      "clip": "phrase_v15_backchannel_64",
+      "ref": "Offer a clear account of the moon landing.",
+      "e2e": null,
+      "e2e_source": null,
+      "e2e_heard": null,
+      "endpointing": 1.0367,
+      "asr_final": 0.0,
+      "llm_ttft": 7.1927,
+      "tts_ttfb": null,
+      "transcript": "Offer a clear account of the moon landing.",
+      "context_tokens": 868,
+      "context_messages": 44,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 8,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request"
+      ]
+    },
+    {
+      "trial": "r02_stage_latency_phrase_v15_background_59",
+      "run": 2,
+      "clip": "phrase_v15_background_59",
+      "ref": "How do you say 'thank you' in Italian?",
+      "e2e": null,
+      "e2e_source": null,
+      "e2e_heard": null,
+      "endpointing": 0.3451,
+      "asr_final": 0.0,
+      "llm_ttft": null,
+      "tts_ttfb": null,
+      "transcript": "How do you say thank you in Italian?",
+      "context_tokens": 849,
+      "context_messages": 42,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 8,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final"
+      ]
+    },
+    {
+      "trial": "r02_stage_latency_phrase_v15_interruption_4",
+      "run": 2,
+      "clip": "phrase_v15_interruption_4",
+      "ref": "How should I take care of indoor plants?",
+      "e2e": 0.9873,
+      "e2e_source": "marks",
+      "e2e_heard": 2.628,
+      "endpointing": 1.4444,
+      "asr_final": 0.0,
+      "llm_ttft": 0.6767,
+      "tts_ttfb": 0.3147,
+      "transcript": "How should I take care of indoor plant?",
+      "context_tokens": 6195,
+      "context_messages": 26,
+      "wer": 0.125,
+      "wer_detail": {
+        "ref_words": 8,
+        "edits": 1,
+        "wer": 0.125
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r02_stage_latency_phrase_v15_interruption_98",
+      "run": 2,
+      "clip": "phrase_v15_interruption_98",
+      "ref": "What kind of music is good for a workout?",
+      "e2e": 0.8998,
+      "e2e_source": "marks",
+      "e2e_heard": 1.444,
+      "endpointing": 0.4279,
+      "asr_final": 0.0,
+      "llm_ttft": 0.588,
+      "tts_ttfb": 0.3117,
+      "transcript": "What kind of music is good for a workout?",
+      "context_tokens": 6508,
+      "context_messages": 40,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 9,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r02_stage_latency_phrase_v15_talking_to_other_52",
+      "run": 2,
+      "clip": "phrase_v15_talking_to_other_52",
+      "ref": "How long should I steep green tea?",
+      "e2e": 3.8297,
+      "e2e_source": "marks",
+      "e2e_heard": 4.356,
+      "endpointing": 0.3156,
+      "asr_final": 0.0,
+      "llm_ttft": 3.5931,
+      "tts_ttfb": 0.236,
+      "transcript": "How long should I steep green tea?",
+      "context_tokens": 10800,
+      "context_messages": 38,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 7,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r02_stage_latency_phrase_v15_talking_to_other_66",
+      "run": 2,
+      "clip": "phrase_v15_talking_to_other_66",
+      "ref": "How do you spell 'accommodation'?",
+      "e2e": 0.8115,
+      "e2e_source": "marks",
+      "e2e_heard": 1.38,
+      "endpointing": 0.4439,
+      "asr_final": 0.0,
+      "llm_ttft": 0.5008,
+      "tts_ttfb": 0.3093,
+      "transcript": "How do you spell accommodation?",
+      "context_tokens": 6114,
+      "context_messages": 22,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 5,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r02_stage_latency_phrase_v15_talking_to_other_70",
+      "run": 2,
+      "clip": "phrase_v15_talking_to_other_70",
+      "ref": "What day of the week will July 4, 2026 be?",
+      "e2e": 1.8217,
+      "e2e_source": "marks",
+      "e2e_heard": 2.084,
+      "endpointing": 0.1166,
+      "asr_final": 0.9105,
+      "llm_ttft": 0.6063,
+      "tts_ttfb": 0.3006,
+      "transcript": "What day of the week will July fourth twenty twenty six be.",
+      "context_tokens": 6319,
+      "context_messages": 31,
+      "wer": 0.4,
+      "wer_detail": {
+        "ref_words": 10,
+        "edits": 4,
+        "wer": 0.4
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_request",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r02_stage_latency_phrase_v15_talking_to_other_77",
+      "run": 2,
+      "clip": "phrase_v15_talking_to_other_77",
+      "ref": "How far is it from Beijing to Shanghai?",
+      "e2e": 6.767,
+      "e2e_source": "marks",
+      "e2e_heard": 7.108,
+      "endpointing": 0.2171,
+      "asr_final": 0.0,
+      "llm_ttft": 6.4521,
+      "tts_ttfb": 0.314,
+      "transcript": "How far is it from Beijing to Shanghai",
+      "context_tokens": 6240,
+      "context_messages": 24,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 8,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r02_stage_latency_phrase_v15_talking_to_other_81",
+      "run": 2,
+      "clip": "phrase_v15_talking_to_other_81",
+      "ref": "Find me a nearby coffee shop that's open now.",
+      "e2e": 3.5769,
+      "e2e_source": "marks",
+      "e2e_heard": 4.708,
+      "endpointing": 0.9756,
+      "asr_final": 0.0,
+      "llm_ttft": 3.3301,
+      "tts_ttfb": 0.2464,
+      "transcript": "Find me a nearby coffee shop that's open now.",
+      "context_tokens": 10709,
+      "context_messages": 36,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 9,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r02_stage_latency_phrase_v1_interrupt_39",
+      "run": 2,
+      "clip": "phrase_v1_interrupt_39",
+      "ref": "Is morning the best time to exercise?",
+      "e2e": 2.4081,
+      "e2e_source": "marks",
+      "e2e_heard": 4.196,
+      "endpointing": 1.6886,
+      "asr_final": 0.0,
+      "llm_ttft": 2.2494,
+      "tts_ttfb": 0.165,
+      "transcript": "Is morning the best time to exercise?",
+      "context_tokens": 6368,
+      "context_messages": 34,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 7,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r03_stage_latency_phrase_v15_backchannel_64",
+      "run": 3,
+      "clip": "phrase_v15_backchannel_64",
+      "ref": "Offer a clear account of the moon landing.",
+      "e2e": 1.1206,
+      "e2e_source": "marks",
+      "e2e_heard": 2.148,
+      "endpointing": 0.9154,
+      "asr_final": 0.0,
+      "llm_ttft": 0.806,
+      "tts_ttfb": 0.314,
+      "transcript": "Offer a clear account of the moon landing.",
+      "context_tokens": 6817,
+      "context_messages": 53,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 8,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r03_stage_latency_phrase_v15_background_59",
+      "run": 3,
+      "clip": "phrase_v15_background_59",
+      "ref": "How do you say 'thank you' in Italian?",
+      "e2e": 1.1342,
+      "e2e_source": "marks",
+      "e2e_heard": 1.668,
+      "endpointing": 0.4599,
+      "asr_final": 0.0,
+      "llm_ttft": 0.7312,
+      "tts_ttfb": 0.4013,
+      "transcript": "How do you say thank you in Italian?",
+      "context_tokens": 6919,
+      "context_messages": 58,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 8,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r03_stage_latency_phrase_v15_interruption_4",
+      "run": 3,
+      "clip": "phrase_v15_interruption_4",
+      "ref": "How should I take care of indoor plants?",
+      "e2e": 1.2027,
+      "e2e_source": "marks",
+      "e2e_heard": 1.988,
+      "endpointing": 0.6661,
+      "asr_final": 0.0,
+      "llm_ttft": 0.8472,
+      "tts_ttfb": 0.354,
+      "transcript": "How should I take care of indoor plants?",
+      "context_tokens": 6998,
+      "context_messages": 62,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 8,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r03_stage_latency_phrase_v15_interruption_98",
+      "run": 3,
+      "clip": "phrase_v15_interruption_98",
+      "ref": "What kind of music is good for a workout?",
+      "e2e": 1.613,
+      "e2e_source": "marks",
+      "e2e_heard": 2.276,
+      "endpointing": 0.5511,
+      "asr_final": 0.0,
+      "llm_ttft": 1.3064,
+      "tts_ttfb": 0.3054,
+      "transcript": "What kind of music is good for a workout?",
+      "context_tokens": 6730,
+      "context_messages": 49,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 9,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r03_stage_latency_phrase_v15_talking_to_other_52",
+      "run": 3,
+      "clip": "phrase_v15_talking_to_other_52",
+      "ref": "How long should I steep green tea?",
+      "e2e": 0.4653,
+      "e2e_source": "marks",
+      "e2e_heard": 1.284,
+      "endpointing": 0.6964,
+      "asr_final": 0.0,
+      "llm_ttft": 0.1506,
+      "tts_ttfb": 0.3138,
+      "transcript": "How long should I steep green tea?",
+      "context_tokens": 6952,
+      "context_messages": 60,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 7,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r03_stage_latency_phrase_v15_talking_to_other_66",
+      "run": 3,
+      "clip": "phrase_v15_talking_to_other_66",
+      "ref": "How do you spell 'accommodation'?",
+      "e2e": 1.1365,
+      "e2e_source": "marks",
+      "e2e_heard": 1.54,
+      "endpointing": 0.3252,
+      "asr_final": 0.0,
+      "llm_ttft": 0.8372,
+      "tts_ttfb": 0.299,
+      "transcript": "How do you spell accommodation?",
+      "context_tokens": 7107,
+      "context_messages": 66,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 5,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r03_stage_latency_phrase_v15_talking_to_other_70",
+      "run": 3,
+      "clip": "phrase_v15_talking_to_other_70",
+      "ref": "What day of the week will July 4, 2026 be?",
+      "e2e": 0.8713,
+      "e2e_source": "marks",
+      "e2e_heard": 1.7,
+      "endpointing": 0.665,
+      "asr_final": 0.0,
+      "llm_ttft": 0.5971,
+      "tts_ttfb": 0.2738,
+      "transcript": "What day of the week will July fourth twenty twenty six be.",
+      "context_tokens": 6888,
+      "context_messages": 56,
+      "wer": 0.4,
+      "wer_detail": {
+        "ref_words": 10,
+        "edits": 4,
+        "wer": 0.4
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r03_stage_latency_phrase_v15_talking_to_other_77",
+      "run": 3,
+      "clip": "phrase_v15_talking_to_other_77",
+      "ref": "How far is it from Beijing to Shanghai?",
+      "e2e": 0.9907,
+      "e2e_source": "marks",
+      "e2e_heard": 1.572,
+      "endpointing": 0.4036,
+      "asr_final": 0.0,
+      "llm_ttft": 0.6924,
+      "tts_ttfb": 0.3039,
+      "transcript": "How far is it from Beijing to Shanghai",
+      "context_tokens": 6640,
+      "context_messages": 46,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 8,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r03_stage_latency_phrase_v15_talking_to_other_81",
+      "run": 3,
+      "clip": "phrase_v15_talking_to_other_81",
+      "ref": "Find me a nearby coffee shop that's open now.",
+      "e2e": 3.8225,
+      "e2e_source": "marks",
+      "e2e_heard": 5.06,
+      "endpointing": 1.1291,
+      "asr_final": 0.0,
+      "llm_ttft": 3.63,
+      "tts_ttfb": 0.2039,
+      "transcript": "Find me a nearby coffee shop that's open now.",
+      "context_tokens": 11366,
+      "context_messages": 64,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 9,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    },
+    {
+      "trial": "r03_stage_latency_phrase_v1_interrupt_39",
+      "run": 3,
+      "clip": "phrase_v1_interrupt_39",
+      "ref": "Is morning the best time to exercise?",
+      "e2e": 0.9986,
+      "e2e_source": "marks",
+      "e2e_heard": 1.476,
+      "endpointing": 0.3513,
+      "asr_final": 0.0,
+      "llm_ttft": 0.6907,
+      "tts_ttfb": 0.3072,
+      "transcript": "Is morning the best time to exercise?",
+      "context_tokens": 6778,
+      "context_messages": 51,
+      "wer": 0.0,
+      "wer_detail": {
+        "ref_words": 7,
+        "edits": 0,
+        "wer": 0.0
+      },
+      "found": [
+        "vad_end",
+        "asr_final",
+        "llm_first_token",
+        "tts_request",
+        "tts_first_audio",
+        "audio_out"
+      ]
+    }
+  ],
+  "per_run": {
+    "1": {
+      "e2e": {
+        "n": 10,
+        "median": 3.0594,
+        "p95": 5.020729999999999,
+        "mean": 2.87305,
+        "min": 0.6654,
+        "max": 5.5655,
+        "ci95_median": [
+          1.4379,
+          4.0557
+        ],
+        "p95_note": "with fewer than 20 trials p95 is close to the slowest trial"
+      },
+      "asr_final": {
+        "n": 10,
+        "median": 0.0,
+        "p95": 0.0,
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "ci95_median": [
+          0.0,
+          0.0
+        ],
+        "p95_note": "with fewer than 20 trials p95 is close to the slowest trial"
+      },
+      "llm_ttft": {
+        "n": 10,
+        "median": 2.8106,
+        "p95": 4.7714349999999985,
+        "mean": 2.6239999999999997,
+        "min": 0.4458,
+        "max": 5.404,
+        "ci95_median": [
+          1.2053,
+          3.8384
+        ],
+        "p95_note": "with fewer than 20 trials p95 is close to the slowest trial"
+      },
+      "tts_ttfb": {
+        "n": 10,
+        "median": 0.22655,
+        "p95": 0.34594499999999995,
+        "mean": 0.24837999999999996,
+        "min": 0.1607,
+        "max": 0.3558,
+        "ci95_median": [
+          0.1711,
+          0.32525
+        ],
+        "p95_note": "with fewer than 20 trials p95 is close to the slowest trial"
+      }
+    },
+    "2": {
+      "e2e": {
+        "n": 8,
+        "median": 2.1149,
+        "p95": 5.738944999999998,
+        "mean": 2.6377500000000005,
+        "min": 0.8115,
+        "max": 6.767,
+        "ci95_median": [
+          0.8998,
+          3.8297
+        ],
+        "p95_note": "with fewer than 20 trials p95 is close to the slowest trial"
+      },
+      "asr_final": {
+        "n": 10,
+        "median": 0.0,
+        "p95": 0.5007749999999991,
+        "mean": 0.09104999999999999,
+        "min": 0.0,
+        "max": 0.9105,
+        "ci95_median": [
+          0.0,
+          0.0
+        ],
+        "p95_note": "with fewer than 20 trials p95 is close to the slowest trial"
+      },
+      "llm_ttft": {
+        "n": 9,
+        "median": 2.2494,
+        "p95": 6.896459999999999,
+        "mean": 2.7988,
+        "min": 0.5008,
+        "max": 7.1927,
+        "ci95_median": [
+          0.588,
+          6.4521
+        ],
+        "p95_note": "with fewer than 20 trials p95 is close to the slowest trial"
+      },
+      "tts_ttfb": {
+        "n": 8,
+        "median": 0.30495,
+        "p95": 0.314455,
+        "mean": 0.2747125,
+        "min": 0.165,
+        "max": 0.3147,
+        "ci95_median": [
+          0.236,
+          0.31284999999999996
+        ],
+        "p95_note": "with fewer than 20 trials p95 is close to the slowest trial"
+      }
+    },
+    "3": {
+      "e2e": {
+        "n": 10,
+        "median": 1.1274000000000002,
+        "p95": 2.8282249999999975,
+        "mean": 1.3355400000000002,
+        "min": 0.4653,
+        "max": 3.8225,
+        "ci95_median": [
+          0.9907,
+          1.3736000000000002
+        ],
+        "p95_note": "with fewer than 20 trials p95 is close to the slowest trial"
+      },
+      "asr_final": {
+        "n": 10,
+        "median": 0.0,
+        "p95": 0.0,
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "ci95_median": [
+          0.0,
+          0.0
+        ],
+        "p95_note": "with fewer than 20 trials p95 is close to the slowest trial"
+      },
+      "llm_ttft": {
+        "n": 10,
+        "median": 0.7686,
+        "p95": 2.5843799999999977,
+        "mean": 1.0288799999999998,
+        "min": 0.1506,
+        "max": 3.63,
+        "ci95_median": [
+          0.66415,
+          1.0197349999999992
+        ],
+        "p95_note": "with fewer than 20 trials p95 is close to the slowest trial"
+      },
+      "tts_ttfb": {
+        "n": 10,
+        "median": 0.3063,
+        "p95": 0.38001499999999994,
+        "mean": 0.30762999999999996,
+        "min": 0.2039,
+        "max": 0.4013,
+        "ci95_median": [
+          0.28885,
+          0.314
+        ],
+        "p95_note": "with fewer than 20 trials p95 is close to the slowest trial"
+      }
+    }
+  }
+}

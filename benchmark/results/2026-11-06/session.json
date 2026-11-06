@@ -1,0 +1,130 @@
+{
+  "student": "201511198",
+  "run_id": "2026-11-06_19-44-33",
+  "started": "2026-11-06T19:44:33+08:00",
+  "rounds": 5,
+  "seed": 290106,
+  "fdbench": "0.1.0",
+  "rig": "direct",
+  "judge": null,
+  "machine": {
+    "os": "Darwin 25.6.0",
+    "machine": "arm64",
+    "pi_model": null,
+    "ram_gb": 16.0,
+    "python": "3.12.12",
+    "network": "unknown",
+    "pi_temp_c": null,
+    "pi_throttled": null,
+    "disk_free_gb": 472.5,
+    "hostname": "192.168.1.6",
+    "optional": {
+      "ASR (faster-whisper)": true,
+      "pitch/intensity (praat-parselmouth)": true,
+      "UTMOSv2 quality": false
+    },
+    "fdbench": "0.1.0"
+  },
+  "devices": {},
+  "warnings_overridden": [],
+  "dataset": "/Users/vinceduero/Documents/menggai/AI231/me/alfred-cascade/fd-benchmark/datasets",
+  "dataset_counts": {
+    "v1_pause_synth": 30,
+    "v1_pause_candor": 30,
+    "v1_turntaking": 30,
+    "v1_interrupt": 30,
+    "v15_interruption": 30,
+    "v15_backchannel": 30,
+    "v15_talking_to_other": 30,
+    "v15_background": 30,
+    "false_tt": 40,
+    "stage_latency": 150
+  },
+  "stage_test": {
+    "phrases": 10,
+    "runs": 3,
+    "phrases_dir": null
+  },
+  "targets": {
+    "e2e": 4.0,
+    "asr_final": 0.8,
+    "llm_ttft": 1.5,
+    "tts_ttfb": 0.6,
+    "barge_in": 0.8,
+    "wer": 0.15
+  },
+  "cooling": "official Raspberry Pi 5 case (built-in fan)",
+  "where": "remote",
+  "link": {
+    "peer": "192.168.1.11:59248",
+    "rtt_ms": 7.053458015434444,
+    "host": "0.0.0.0",
+    "port": 8791,
+    "disconnects": 1
+  },
+  "machine_stats": {
+    "hello": {
+      "host": "raspy",
+      "os": "Linux 6.18.50+rpt-rpi-2712",
+      "machine": "aarch64",
+      "pi_model": "Raspberry Pi 5 Model B Rev 1.1",
+      "ncpu": 4,
+      "caps": {
+        "backend": "procfs",
+        "cpu": true,
+        "cores": true,
+        "memory": true,
+        "processes": true,
+        "temperature": true,
+        "clock": true,
+        "throttle": true
+      },
+      "slow_every": 2.0,
+      "patterns": {
+        "asr_mcp": "mcp_servers.asr",
+        "tts_mcp": "mcp_servers.tts",
+        "tools_mcp": "mcp_servers.tools"
+      },
+      "python": "3.12.16",
+      "ram_mb": 8062,
+      "network": "wifi",
+      "link_network": "wifi",
+      "source": "remote"
+    },
+    "samples": 2086,
+    "clock_offset": 984162.7193278769
+  },
+  "marks": {
+    "stages_seen": {
+      "asr_partial": 1452,
+      "interrupted": 248,
+      "asr_final": 131,
+      "llm_request": 276,
+      "user_stopped": 242,
+      "llm_first_token": 123,
+      "tts_request": 123,
+      "llm_usage": 128,
+      "tts_first_audio": 122,
+      "audio_out": 242,
+      "bot_stopped": 242
+    },
+    "n": 3329,
+    "clock_offsets": {
+      "ws": 984162.719044224
+    }
+  },
+  "models": {
+    "harness": "pipecat 1.15.0",
+    "ASR": "Deepgram Flux (flux-general-en)",
+    "LLM": "gpt-6-luna, reasoning none",
+    "TTS": "Cartesia sonic-3.6 (voice Archie)",
+    "VAD": "Deepgram Flux turn detection"
+  },
+  "finished": "2026-11-06T20:19:20+08:00",
+  "outcome": {
+    "completed": 80,
+    "total": 80,
+    "stopped_early": false,
+    "seconds": 2080.514301499934
+  }
+}
