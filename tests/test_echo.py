@@ -34,3 +34,13 @@ def test_only_his_recent_words_count():
     guard = guard_saying(SAID)
     guard.alfred_said(" " + "Very good, sir. " * 60)  # much later
     assert not guard.is_echo("came out in 2012 to teach")
+
+
+def test_the_end_of_his_sentence_heard_just_after_is_his():
+    """ "Yes, sir?" came back as you saying "Yes." and was taken as a yes."""
+    guard = guard_saying("Yes, sir?")
+    assert guard.is_tail_echo("Yes.")
+    assert guard.is_tail_echo("sir")
+    assert not guard.is_tail_echo("No.")  # not his words: yours
+    assert not guard.is_tail_echo("Yes, send it now")  # more than a word or two
+    assert not guard.is_tail_echo("")

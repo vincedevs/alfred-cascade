@@ -64,7 +64,7 @@ from alfred.audio import SAMPLE_RATE, AudioEngine, load_sound
 from alfred.carry_on import CarryOnAfterAside
 from alfred.chat import chat_tools
 from alfred.config import PROJECT_ROOT, Config, load_prompt
-from alfred.echo import EchoGuard
+from alfred.echo import TAIL_SECONDS, EchoGuard
 from alfred.greeting import SleepCommand, greet_unless_asked
 from alfred.house import wayne_manor_tools
 from alfred.idle import QuietTimer, check_every
@@ -103,6 +103,11 @@ TTS_BUFFER_MS = 150
 # While Alfred is speaking, it takes this many of your words to stop him, so "mm-hmm" or
 # "alright" don't. When he isn't, your first word starts your turn.
 INTERRUPT_WORDS = 3
+# ...except his name, or "stop", "wait", "hold on": those stop him straight away.
+STOP_HIM = re.compile(r"\balfred\b|^\W*(stop|wait|hold on)\b", re.IGNORECASE)
+# Words Flux should expect: it heard "set the mood" as "set them wood", "play it" as
+# "payout" and "demo's" as "them was".
+KEYTERMS = ["Alfred", "mood", "demo", "Spotify", "Wayne Manor", "living room", "play it"]
 # GPT-6 Luna answers straight away, without reasoning first: the fastest setting.
 REASONING = "none"
 # How a service says the account has no credits left (then nothing works until you add some)
@@ -216,23 +221,27 @@ class Conversation:
             self._play_sleep_sound()  # closed some other way (connection dropped)
         return self.transcript
 
-    def say(self, note: str) -> None:
+    def say(self, note: str, still=None) -> None:
         """Alfred says this now, without being asked (announcer.py), once you've finished
         speaking and he has answered you: a plain model would otherwise talk over you, or
         say it twice (once in the answer it's writing, once for this). The same news twice
-        within REPEAT_SECONDS is said once."""
+        within REPEAT_SECONDS is said once. still(), if given, is checked when he's free:
+        a job's question that was answered meanwhile isn't asked."""
         now = time.monotonic()
         if now - self._said_notes.get(note, -REPEAT_SECONDS) < REPEAT_SECONDS:
             logger.info("Not repeating news Alfred was just given")
             return
         self._said_notes[note] = now
-        self.llm.create_task(self._say_when_free(note), "say")
+        self.llm.create_task(self._say_when_free(note, still), "say")
 
-    async def _say_when_free(self, note: str) -> None:
+    async def _say_when_free(self, note: str, still=None) -> None:
         waited = 0.0
         while (self._user_speaking or self._waiting_since is not None) and waited < SAY_WITHIN:
             await asyncio.sleep(SAY_WHEN_FREE_EVERY)
             waited += SAY_WHEN_FREE_EVERY
+        if still is not None and not still():
+            logger.info("Not saying news that's no longer current (a question already settled)")
+            return
         message = {"role": "developer", "content": note}
         await self.worker.queue_frame(LLMMessagesAppendFrame(messages=[message], run_llm=True))
 
@@ -298,7 +307,10 @@ class Conversation:
         seconds to answer, and GPT-6 Luna says nothing until it does."""
         self.tool_calls += 1
         self.timer.activity()
-        if any(call.function_name == "do_task" for call in calls):
+        starts_job = any(call.function_name == "do_task" for call in calls)
+        # With a job waiting for your answer, do_task asks the model to check first
+        # (tools.py): "Right away, sir" would be premature.
+        if starts_job and not self.services.questions.waiting():
             self.llm.create_task(self._say_aloud(JOB_STARTED), "job started")
 
     def _looking_up(self) -> bool:
@@ -384,14 +396,12 @@ def create_stt(config: Config) -> DeepgramFluxSTTService:
     carry on speaking."""
     return DeepgramFluxSTTService(
         api_key=config.deepgram_api_key or "",
-        settings=DeepgramFluxSTTService.Settings(model=config.stt_model),
+        settings=DeepgramFluxSTTService.Settings(model=config.stt_model, keyterm=KEYTERMS),
         enable_eager_end_of_turn=True,
     )
 
 
-def create_turns(
-    context: LLMContext, echo: EchoGuard | None = None
-) -> LLMContextAggregatorPair:
+def create_turns(context: LLMContext, echo: EchoGuard | None = None) -> LLMContextAggregatorPair:
     """Your side of the conversation and Alfred's. Your turn starts on your first word, or
     on your INTERRUPT_WORDS-th while Alfred is speaking (unless they're mostly his own,
     heard back: echo.py), and ends when Flux says so (see create_stt)."""
@@ -406,16 +416,32 @@ def create_turns(
 
 class NotHisEcho(MinWordsUserTurnStartStrategy):
     """Pipecat's minimum-words start, skipping words heard while Alfred speaks that are
-    mostly his own (echo.py). Without a guard (the benchmark), it's the plain one."""
+    mostly his own, and a word or two of his own heard just after he stops (echo.py).
+    His name or "stop" interrupts him at once, however short: "Hey, Alfred" was ignored
+    while he talked on. Without a guard (the benchmark), it's the plain one."""
 
     def __init__(self, echo: EchoGuard | None, **kwargs):
         super().__init__(**kwargs)
         self._echo = echo
+        self._stopped_at = -1e9  # when Alfred last stopped speaking
+
+    async def _handle_bot_stopped_speaking(self, frame) -> None:
+        await super()._handle_bot_stopped_speaking(frame)
+        self._stopped_at = time.monotonic()
 
     async def _handle_transcription(self, frame) -> None:
-        if self._echo and self._bot_speaking and self._echo.is_echo(frame.text):
-            await self.trigger_reset_aggregation()  # not a turn: dropped, not kept
-            return
+        if self._echo:
+            if self._bot_speaking and STOP_HIM.search(frame.text):
+                await self.report_user_turn_started()
+                return
+            if self._bot_speaking and self._echo.is_echo(frame.text):
+                await self.trigger_reset_aggregation()  # not a turn: dropped, not kept
+                return
+            just_stopped = time.monotonic() - self._stopped_at < TAIL_SECONDS
+            if not self._bot_speaking and just_stopped and self._echo.is_tail_echo(frame.text):
+                logger.debug(f"Heard Alfred's own last words, not yours: {frame.text!r}")
+                await self.trigger_reset_aggregation()
+                return
         await super()._handle_transcription(frame)
 
 

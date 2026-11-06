@@ -114,7 +114,9 @@ def test_the_same_news_twice_is_said_once():
     conversation = SimpleNamespace(
         _said_notes={}, llm=SimpleNamespace(create_task=lambda job, name: started.append(job))
     )
-    conversation._say_when_free = lambda note: SimpleNamespace(close=lambda: None, note=note)
+    conversation._say_when_free = lambda note, still=None: SimpleNamespace(
+        close=lambda: None, note=note
+    )
     voice.Conversation.say(conversation, "The game is ready.")
     voice.Conversation.say(conversation, "The game is ready.")
     voice.Conversation.say(conversation, "Your timer is done.")
@@ -132,6 +134,7 @@ def test_starting_a_job_is_said_at_once():
         timer=SimpleNamespace(activity=lambda: None),
         llm=SimpleNamespace(create_task=lambda job, name: started.append(job)),
         _say_aloud=say_aloud,
+        services=SimpleNamespace(questions=SimpleNamespace(waiting=lambda: [])),
     )
     voice.Conversation._used_tools(conversation, [SimpleNamespace(function_name="recall")])
     assert started == []  # a quick tool: he answers himself
@@ -147,7 +150,28 @@ def test_running_out_of_credits_names_the_service():
     error = SimpleNamespace(error="402 Payment Required", processor=CartesiaTTSService())
     assert voice.NO_CREDITS.search(error.error)
     assert voice.whose_error(error) == "Cartesia"
-    assert voice.whose_error(SimpleNamespace(error="insufficient_quota", processor=None)) == "OpenAI"
+    no_quota = SimpleNamespace(error="insufficient_quota", processor=None)
+    assert voice.whose_error(no_quota) == "OpenAI"
     assert not voice.NO_CREDITS.search("timeout after 4020 ms")
     cartesia = "Error: {'error_code': 'quota_exceeded', 'message': 'Generation stopped'}"
     assert voice.NO_CREDITS.search(cartesia)  # what Cartesia actually sent on the Pi
+
+
+def test_his_name_or_stop_interrupts_him_at_once():
+    assert voice.STOP_HIM.search("Hey, Alfred.")
+    assert voice.STOP_HIM.search("Alfred")
+    assert voice.STOP_HIM.search("Stop.") and voice.STOP_HIM.search("wait")
+    assert not voice.STOP_HIM.search("mm-hmm")
+    assert not voice.STOP_HIM.search("Music stopped.")  # his own words, heard back
+
+
+def test_no_right_away_while_a_job_waits_for_an_answer():
+    started = []
+    conversation = SimpleNamespace(
+        tool_calls=0,
+        timer=SimpleNamespace(activity=lambda: None),
+        llm=SimpleNamespace(create_task=lambda job, name: started.append(job)),
+        services=SimpleNamespace(questions=SimpleNamespace(waiting=lambda: ["a question"])),
+    )
+    voice.Conversation._used_tools(conversation, [SimpleNamespace(function_name="do_task")])
+    assert started == []

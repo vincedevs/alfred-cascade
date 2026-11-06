@@ -22,6 +22,8 @@ QUICK_ANSWER_SECONDS = 3  # a job done within this is answered straight away (vo
 
 
 def job_tools(runner: TaskRunner, db: Database, questions: Questions) -> list:
+    checked: set[int] = set()  # questions do_task already pointed out (once each)
+
     async def do_task(params: FunctionCallParams, request: str):
         """Hand a job to Alfred's background worker, which can research the web, read pages,
         write notes, write and run code, and send email (after the user approves). Use it for
@@ -31,6 +33,20 @@ def job_tools(runner: TaskRunner, db: Database, questions: Questions) -> list:
         Args:
             request: The job in full, with every detail and preference the user gave.
         """
+        # "Okay, just send it", said as a job asked its question, started a second job
+        # instead of answering the first: point the question out once before starting.
+        unseen = [q for q in questions.waiting() if q.id not in checked]
+        if unseen:
+            checked.update(q.id for q in unseen)
+            await params.result_callback(
+                {
+                    "not_started": True,
+                    "note": f"Job {unseen[0].task_id} is waiting for the user's answer to: "
+                    f'"{unseen[0].text}". If what the user just said answers it, pass it with '
+                    "answer_job instead. If it's really a new job, call do_task again.",
+                }
+            )
+            return
         task_id = runner.start(request)
         task = await runner.wait(task_id, QUICK_ANSWER_SECONDS)
         if task.status == "running":

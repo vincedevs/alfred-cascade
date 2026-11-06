@@ -8,6 +8,11 @@ Guardian](https://...)" -> "the Guardian") and leaves out the marks nobody says.
 The reply streams in word by word, so this only holds back what might still turn out to be
 a link: text inside brackets, and a word that starts like "http" or "www.". Everything
 else goes straight through.
+
+Now and then GPT-6 Luna writes its whole answer twice in one reply ("Shall I send it?
+Shall I send it?"). NoRepeats drops a sentence that starts like one already said in the
+same reply: from the second sentence on, it holds back each sentence's first few words
+(while the earlier ones are still being spoken) to compare them.
 """
 
 import re
@@ -28,6 +33,8 @@ LINK = re.compile(r"\[([^\]]*)\]\([^)]*\)")  # [label](link): keep the label
 ADDRESS = re.compile(r"(https?://|www\.)\S*", re.IGNORECASE)
 ADDRESS_STARTS = ("http", "www.")
 HOLD_AT_MOST = 400  # an unclosed bracket is said after all once it's this long
+SAME_START_WORDS = 4  # a sentence starting with the same words as an earlier one: a repeat
+SENTENCE_ENDS = ".?!"
 
 
 class SpeakableText(FrameProcessor):
@@ -36,24 +43,80 @@ class SpeakableText(FrameProcessor):
     def __init__(self, echo: EchoGuard | None = None):
         super().__init__()
         self._text = Speakable()
+        self._repeats = NoRepeats()
         self._echo = echo  # told what Alfred says, so his echo isn't taken for you
 
     async def process_frame(self, frame: Frame, direction: FrameDirection) -> None:
         await super().process_frame(frame, direction)
         if isinstance(frame, LLMTextFrame) and direction == FrameDirection.DOWNSTREAM:
-            frame.text = self._text.feed(frame.text)
+            frame.text = self._repeats.feed(self._text.feed(frame.text))
             if frame.text:
                 if self._echo:
                     self._echo.alfred_said(frame.text)
                 await self.push_frame(frame, direction)
             return
-        if isinstance(frame, LLMFullResponseEndFrame) and (rest := self._text.flush()):
-            if self._echo:
-                self._echo.alfred_said(rest)
-            await self.push_frame(LLMTextFrame(rest), direction)
+        if isinstance(frame, LLMFullResponseEndFrame):
+            rest = self._repeats.feed(self._text.flush()) + self._repeats.flush()
+            if rest:
+                if self._echo:
+                    self._echo.alfred_said(rest)
+                await self.push_frame(LLMTextFrame(rest), direction)
         elif isinstance(frame, (InterruptionFrame, LLMFullResponseStartFrame)):
             self._text.reset()  # whatever was held back belongs to a reply that's over
+            self._repeats.reset()
         await self.push_frame(frame, direction)
+
+
+class NoRepeats:
+    """Drops a sentence that starts like one already said in this reply (see the module
+    docstring). The first sentence goes straight through: nothing to compare it with."""
+
+    def __init__(self):
+        self.reset()
+
+    def reset(self) -> None:
+        self.said: list[list[str]] = []  # the sentences of this reply so far, as words
+        self.sentence = ""  # the current sentence, as written
+        self.held = ""  # its start, held back until it's known not to be a repeat
+        self.passing = False  # it isn't a repeat: let it through
+        self.dropping = False  # it is: leave it out
+
+    def feed(self, text: str) -> str:
+        return "".join(self._char(ch) for ch in text)
+
+    def flush(self) -> str:
+        """The end of the reply: a held-back start is said, unless it's a repeat."""
+        rest = "" if self.dropping or self._repeats(self.held) else self.held
+        self.reset()
+        return rest
+
+    def _char(self, ch: str) -> str:
+        self.sentence += ch
+        if self.dropping or self.passing or not self.said:
+            out = "" if self.dropping else ch
+        else:
+            self.held += ch
+            out = ""
+            enough = len(words_of(self.held)) >= SAME_START_WORDS and ch.isspace()
+            if enough or ch in SENTENCE_ENDS:
+                if self._repeats(self.held):
+                    self.dropping = True
+                else:
+                    out, self.passing = self.held, True
+                self.held = ""
+        if ch in SENTENCE_ENDS:
+            if not self.dropping and words_of(self.sentence):
+                self.said.append(words_of(self.sentence))
+            self.sentence, self.held, self.passing, self.dropping = "", "", False, False
+        return out
+
+    def _repeats(self, start: str) -> bool:
+        words = words_of(start)[:SAME_START_WORDS]
+        return bool(words) and any(earlier[: len(words)] == words for earlier in self.said)
+
+
+def words_of(text: str) -> list[str]:
+    return re.findall(r"[a-z0-9']+", text.lower().replace("’", "'"))
 
 
 class Speakable:

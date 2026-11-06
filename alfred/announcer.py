@@ -16,7 +16,7 @@ import time
 
 from loguru import logger
 
-from alfred.chat import Chat
+from alfred.chat import CHAT_JOB, Chat
 from alfred.db import Database, Question, Reminder, Task
 from alfred.questions import Questions
 from alfred.reminders import Reminders
@@ -179,7 +179,13 @@ class Announcer:
             return  # left for later: Alfred speaks up once this session has closed
         self._questions.new_question.clear()  # said here, so no need to speak up later
         self._expect_answer()
-        self.tell(question_note(question))
+        if question.task_id == CHAT_JOB:
+            return  # send_chat_message's answer has Alfred ask it (chat.py): once is enough
+        self.tell(question_note(question), still=lambda: self._still_waiting(question))
+
+    def _still_waiting(self, question: Question) -> bool:
+        """By the time Alfred is free to ask, the job may have been answered or ended."""
+        return any(waiting.id == question.id for waiting in self._questions.waiting())
 
     def _expect_answer(self) -> None:
         """The quick yes/no path is only for a single open approval: with two questions
@@ -193,9 +199,13 @@ class Announcer:
         if self.session_open and not self.closing:
             self.tell(note)
 
-    def tell(self, note: str) -> None:
-        """Alfred says this now, without being asked (once you've finished speaking)."""
-        self._say_now(note)
+    def tell(self, note: str, still=None) -> None:
+        """Alfred says this now, without being asked (once you've finished speaking).
+        still(): checked when he's free to say it; if False, it's no longer worth saying."""
+        if still is None:
+            self._say_now(note)
+        else:
+            self._say_now(note, still)
 
 
 SPEAKING_RULES = (

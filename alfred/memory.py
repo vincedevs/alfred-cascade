@@ -88,7 +88,9 @@ class Memory:
             return ""
         lines = "\n".join(f"- {fact}" for fact in facts[-PROFILE_IN_PROMPTS:])
         older = len(facts) - PROFILE_IN_PROMPTS
-        more = f"\n({older} older facts aren't listed here: recall finds them.)" if older > 0 else ""
+        more = ""
+        if older > 0:
+            more = f"\n({older} older facts aren't listed here: recall finds them.)"
         return f"\n\n## What you know about the user (from memory)\n{lines}{more}"
 
     def _write(self, facts: list[str]) -> None:

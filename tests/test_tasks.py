@@ -288,3 +288,25 @@ def test_task_status_finds_an_older_job_by_what_it_was(tmp_path):
         assert snake not in [job["task_id"] for job in params.result["jobs"]]
 
     asyncio.run(main())
+
+
+def test_a_new_job_while_one_waits_for_an_answer_checks_first(tmp_path):
+    """ "Okay, just send it", said as a job asked its question, started a second job."""
+
+    async def main():
+        db, runner = make(tmp_path, quick_agent)
+        do_task = tools_for(runner, db)[0]
+        asking = asyncio.create_task(runner.questions.ask(3, "clarify", "Which summary?"))
+        await asyncio.sleep(0.01)
+
+        params = FakeParams()
+        await do_task(params, request="send the summary")
+        assert params.result["not_started"] and "answer_job" in params.result["note"]
+        assert db.recent_tasks(3) == []  # nothing started
+
+        await do_task(params, request="send the summary")  # asked again: really a new job
+        assert params.result["status"] == "done"
+        runner.questions.answer(3, "the news")
+        await asking
+
+    asyncio.run(main())

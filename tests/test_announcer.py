@@ -34,9 +34,11 @@ class FakeSay:
 
     def __init__(self):
         self.notes = []
+        self.still = []  # for each note: is it still worth saying? (None: always)
 
-    def __call__(self, note):
+    def __call__(self, note, still=None):
         self.notes.append(note)
+        self.still.append(still)
 
 
 def make(tmp_path, monkeypatch=None):
@@ -239,5 +241,33 @@ def test_stop_and_snooze_act_at_once_while_ringing(tmp_path):
         announcer.user_said("Okay, stop")
         await asyncio.sleep(0.01)
         assert not ringer.ringing and "has already been stopped" in spoken.notes[-1]
+
+    asyncio.run(main())
+
+
+def test_a_question_answered_meanwhile_is_not_asked(tmp_path):
+    """By the time Alfred is free to ask, the question may be settled."""
+
+    async def main():
+        _, questions, _, spoken = make(tmp_path)
+        asking = asyncio.create_task(questions.ask(6, "clarify", "Which year?"))
+        await asyncio.sleep(0.01)
+        assert spoken.still[0]()  # still waiting: ask it
+        questions.answer(6, "this year")
+        await asking
+        assert not spoken.still[0]()  # answered: not worth asking any more
+
+    asyncio.run(main())
+
+
+def test_a_chat_approval_is_asked_by_the_chat_tool_not_announced(tmp_path):
+    from alfred.chat import CHAT_JOB
+
+    async def main():
+        _, questions, _, spoken = make(tmp_path)
+        asking = asyncio.create_task(questions.ask(CHAT_JOB, "approve", 'Shall I send "Hi"?'))
+        await asyncio.sleep(0.01)
+        assert spoken.notes == []  # send_chat_message's answer has Alfred ask it
+        asking.cancel()
 
     asyncio.run(main())

@@ -93,3 +93,10 @@ def test_a_no_or_a_failure_sends_nothing(tmp_path, monkeypatch):
         assert outcomes == ["declined", "approved", "failed"]
 
     asyncio.run(main())
+
+
+def test_the_chat_tool_has_alfred_ask_once_in_its_own_words():
+    from alfred.chat import approval_question
+
+    question = approval_question("On my way", "family")
+    assert question == 'Shall I send "On my way" to the family chat?'

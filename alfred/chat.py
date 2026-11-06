@@ -66,7 +66,7 @@ class Chat:
     async def _ask_then_send(self, text: str, space: str) -> None:
         details = {"space": space, "text": text}
         answer = await self._questions.ask(
-            CHAT_JOB, "approve", f'Shall I send "{text}" to the {space} chat?', APPROVAL_SECONDS
+            CHAT_JOB, "approve", approval_question(text, space), APPROVAL_SECONDS
         )
         if not is_yes(answer):
             outcome = "no answer" if answer is None else "declined"
@@ -89,6 +89,10 @@ class Chat:
     def _done(self, note: str) -> None:
         for listener in list(self.on_done):
             listener(note)
+
+
+def approval_question(text: str, space: str) -> str:
+    return f'Shall I send "{text}" to the {space} chat?'
 
 
 def chat_tools(chat: Chat) -> list:
@@ -116,11 +120,14 @@ def chat_tools(chat: Chat) -> list:
                 {"error": "Another message is still waiting for the user's answer."}
             )
             return
+        # The tool's answer is what Alfred says next, so it asks the question itself: a
+        # separate announcement of it as well had him ask twice (announcer.py skips it).
         await params.result_callback(
             {
                 "space": name,
-                "note": "Alfred is reading it back and asking the user now. Don't ask "
-                "again yourself; the outcome is announced.",
+                "note": "Read the message back and ask the user now, once, in these words: "
+                f"{approval_question(text, name)} Then pass their answer with answer_job "
+                f"for task_id {CHAT_JOB}; the outcome is announced.",
             }
         )
 
