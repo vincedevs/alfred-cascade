@@ -13,6 +13,7 @@ Logging is set up in logs.py; everything long-lived is built in services.py.
 """
 
 import asyncio
+import gc
 import os
 import signal
 import sys
@@ -80,6 +81,24 @@ async def run(config: Config) -> None:
             services.web.stop()
         services.db.close()
         engine.close()
+        await let_go_of_subprocesses()
+
+
+async def let_go_of_subprocesses() -> None:
+    """Claude's processes (jobs, memory notes) leave asyncio subprocess objects behind.
+    Collected after the event loop has closed, each printed "Exception ignored ...
+    RuntimeError: Event loop is closed" on Ctrl+C. Collect them now, while it's open."""
+    gc.collect()
+    await asyncio.sleep(0.1)  # their clean-up runs on the loop
+
+
+def quiet_closed_loop_noise(unraisable) -> None:
+    """The same harmless message from any subprocess object collected later still: hidden.
+    Anything else that can't be raised is reported as usual."""
+    error = unraisable.exc_value
+    if isinstance(error, RuntimeError) and str(error) == "Event loop is closed":
+        return
+    sys.__unraisablehook__(unraisable)
 
 
 def start_ringer(engine: AudioEngine, services: Services) -> Ringer:
@@ -168,6 +187,7 @@ def main() -> None:
     if _lock is None:
         sys.exit("Alfred is already running (stop the other one first).")
     setup_logging(config)
+    sys.unraisablehook = quiet_closed_loop_noise
     try:
         asyncio.run(run(config))
     except (KeyboardInterrupt, asyncio.CancelledError):
